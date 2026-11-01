@@ -1,0 +1,52 @@
+{
+  "api_setu_response": {
+    "status": "SUCCESS",
+    "timestamp": "2026-10-25T09:30:00Z",
+    "txn_id": "SETU-EKYC-998822-7711",
+    "aadhaar_data": {
+      "masked_uid": "XXXX-XXXX-8921",
+      "full_name": "Ramesh Sharma",
+      "gender": "M",
+      "dob": "1974-04-12",
+      "address": {
+        "care_of": "Late Shri Shiv Charan Sharma",
+        "house": "Flat 402, Sainik Enclave",
+        "street": "Camp Road",
+        "locality": "Khadki",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "pincode": "411001"
+      }
+    },
+    "digilocker_documents": [
+      {
+        "doc_type": "PPO_ORDER",
+        "doc_id": "DL-PPO-2024-987654",
+        "issuer": "Principal Controller of Defence Accounts (Pensions), Prayagraj",
+        "issue_date": "2024-08-31",
+        "metadata": {
+          "service_number": "JC-765432W",
+          "service_branch": "ARMY",
+          "rank": "Subedar Major",
+          "corps_arm": "Corps of Signals",
+          "enrollment_date": "1994-08-15",
+          "discharge_date": "2024-08-31",
+          "ppo_number": "PPO/ARM/2024/0987654",
+          "sparsh_id": "2024SPARSH889911"
+        }
+      },
+      {
+        "doc_type": "ESM_ID_CARD",
+        "doc_id": "DL-ESM-PN-44119",
+        "issuer": "Zila Sainik Board, Pune, Kendriya Sainik Board",
+        "issue_date": "2024-09-12",
+        "valid_upto": "LIFETIME",
+        "metadata": {
+          "service_number": "JC-765432W",
+          "esm_reg_no": "ZSB/PN/2024/7741",
+          "blood_group": "B+"
+        }
+      }
+    ]
+  }
+}

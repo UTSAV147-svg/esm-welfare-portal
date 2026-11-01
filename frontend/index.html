@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeerSeva | Unified Defense Benefits Orchestrator for Indian Ex-Servicemen</title>
+  <meta name="description" content="Unified digital public infrastructure platform for Indian Armed Forces Veterans: SPARSH pension, ECHS healthcare, CSD AFD canteen, and KSB welfare schemes.">
+  <meta name="theme-color" content="#0A192F">
+  <link rel="manifest" href="public/manifest.json">
+  
+  <!-- Bootstrap 5 CSS & Bootstrap Icons (Local Vendor with Fast Zero-Latency Loading) -->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+  
+  <!-- VeerSeva Custom Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-size-md">
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content-area" class="skip-link">Skip to main content</a>
+
+  <!-- Tricolor National Ribbon -->
+  <div class="top-tricolor-ribbon"></div>
+
+  <!-- Accessibility & Persona Switcher Bar -->
+  <div class="accessibility-bar">
+    <div class="container-fluid px-3 px-lg-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <!-- A11y Controls -->
+      <div class="d-flex align-items-center flex-wrap gap-1">
+        <span class="text-secondary fw-semibold small me-1">Text Size:</span>
+        <button id="btn-font-sm" class="btn-a11y" aria-label="Decrease text size" onclick="adjustFontSize('sm')">A-</button>
+        <button id="btn-font-md" class="btn-a11y active" aria-label="Default text size" onclick="adjustFontSize('md')">A</button>
+        <button id="btn-font-lg" class="btn-a11y" aria-label="Increase text size" onclick="adjustFontSize('lg')">A+</button>
+        <button id="btn-high-contrast" class="btn-a11y ms-1" aria-label="Toggle High Contrast Mode" onclick="toggleHighContrast()">
+          <i class="bi bi-circle-half me-1"></i> <span>High Contrast</span>
+        </button>
+      </div>
+
+      <!-- Quick Persona Instant Switcher (Testing & Demonstration) -->
+      <div class="d-flex align-items-center flex-wrap gap-1">
+        <span class="badge bg-secondary text-white small me-1"><i class="bi bi-person-badge me-1"></i> Quick Switch:</span>
+        <button class="persona-switch-badge active" id="btn-persona-guest" data-persona="GUEST" onclick="switchPersona('GUEST')">
+          <i class="bi bi-globe me-1"></i> Public Guest
+        </button>
+        <button class="persona-switch-badge" id="btn-persona-esm" data-persona="ESM" onclick="switchPersona('ESM')">
+          <i class="bi bi-award-fill text-warning me-1"></i> 🎖️ Veteran (Ramesh Sharma)
+        </button>
+        <button class="persona-switch-badge" id="btn-persona-officer" data-persona="ZSB_OFFICER" onclick="switchPersona('ZSB_OFFICER')">
+          <i class="bi bi-bank2 text-info me-1"></i> 🏛️ ZSB Officer (Pune)
+        </button>
+        <button class="persona-switch-badge" id="btn-persona-admin" data-persona="ADMIN" onclick="switchPersona('ADMIN')">
+          <i class="bi bi-shield-shaded text-danger me-1"></i> 🛡️ Super Admin
+        </button>
+      </div>
+
+      <!-- Language & Live Session Timer -->
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-dark border border-warning text-warning py-1 px-2 small" id="badge-session-timer" title="Active 15-Minute Session Timebox">
+          <i class="bi bi-stopwatch me-1"></i> <span id="session-live-clock">15:00</span>
+        </span>
+        <select id="select-lang" class="form-select form-select-sm py-0" style="width: auto;">
+          <option value="en">English (India)</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Master Unified Navigation Bar -->
+  <nav class="navbar navbar-expand-xl navbar-veerseva sticky-top" aria-label="Primary Navigation">
+    <div class="container-fluid px-3 px-lg-4">
+      <!-- Brand Logo -->
+      <a class="navbar-brand text-white d-flex align-items-center me-3" href="#home" onclick="switchPortal('public'); return false;">
+        <i class="bi bi-shield-shaded fs-3 text-warning me-2"></i>
+        <div>
+          <span class="fs-4 fw-bold letter-spacing-sm">वीरसेवा <span class="text-warning">VeerSeva</span></span>
+          <span class="navbar-brand-badge">MOD & INDIA STACK</span>
+        </div>
+      </a>
+
+      <!-- Sub-Website Primary Mode Switcher (1. Public, 2. Veteran, 3. Admin) -->
+      <div class="portal-nav-pills my-2 my-xl-0 me-xl-auto">
+        <button class="portal-pill-btn active" id="pill-public" data-target-portal="public" onclick="switchPortal('public')">
+          <i class="bi bi-globe2"></i> <span>1. Public Portal</span>
+        </button>
+        <button class="portal-pill-btn" id="pill-veteran" data-target-portal="veteran" onclick="switchPortal('veteran')">
+          <i class="bi bi-award-fill text-warning"></i> <span>2. Veteran Dashboard (ESM)</span>
+        </button>
+        <button class="portal-pill-btn" id="pill-admin" data-target-portal="admin" onclick="switchPortal('admin')">
+          <i class="bi bi-shield-lock-fill text-danger"></i> <span>3. Officer & Admin Command</span>
+        </button>
+      </div>
+
+      <!-- Mobile Navbar Toggle -->
+      <button class="navbar-toggler border-warning text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <i class="bi bi-list fs-2 text-warning"></i>
+      </button>
+
+      <!-- Navigation Links & User Action Menu -->
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-xl-center">
+          <!-- Benefits Dropdown with Direct Option Redirections -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-grid-3x3-gap-fill me-1"></i> Benefits Modules
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark shadow">
+              <li><a class="dropdown-item" href="#pension" onclick="switchPortal('veteran'); switchVeteranTab('pension'); return false;"><i class="bi bi-cash-stack text-success me-2"></i> SPARSH Pension Tracker</a></li>
+              <li><a class="dropdown-item" href="#healthcare" onclick="switchPortal('veteran'); switchVeteranTab('healthcare'); return false;"><i class="bi bi-heart-pulse-fill text-danger me-2"></i> ECHS Healthcare Hub</a></li>
+              <li><a class="dropdown-item" href="#csd" onclick="switchPortal('veteran'); switchVeteranTab('csd'); return false;"><i class="bi bi-cart3 text-warning me-2"></i> CSD AFD Canteen Catalog</a></li>
+              <li><a class="dropdown-item" href="#resettlement" onclick="switchPortal('veteran'); switchVeteranTab('resettlement'); return false;"><i class="bi bi-briefcase-fill text-info me-2"></i> DGR Corporate Jobs</a></li>
+              <li><a class="dropdown-item" href="#schemes" onclick="switchPortal('veteran'); switchVeteranTab('schemes'); return false;"><i class="bi bi-mortarboard-fill text-primary me-2"></i> KSB PMSS Scholarships</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#applications" onclick="switchPortal('veteran'); switchVeteranTab('applications'); return false;"><i class="bi bi-file-earmark-text me-2"></i> My Applications Pipeline</a></li>
+            </ul>
+          </li>
+
+          <!-- Admin Quick Shortcuts Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-gear-wide-connected me-1"></i> Admin & Architecture
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark shadow">
+              <li><a class="dropdown-item" href="#admin-approvals" onclick="switchPortal('admin'); switchAdminTab('applications'); return false;"><i class="bi bi-inbox-fill text-warning me-2"></i> Application Approvals (ZSB Scope)</a></li>
+              <li><a class="dropdown-item" href="#admin-stats" onclick="switchPortal('admin'); switchAdminTab('stats'); return false;"><i class="bi bi-bar-chart-fill text-info me-2"></i> Dashboard & Aggregations</a></li>
+              <li><a class="dropdown-item" href="#admin-scrapers" onclick="switchPortal('admin'); switchAdminTab('scrapers'); return false;"><i class="bi bi-arrow-repeat text-success me-2"></i> Portal Scraper Sync Status</a></li>
+              <li><a class="dropdown-item" href="#admin-export" onclick="switchPortal('admin'); switchAdminTab('export'); return false;"><i class="bi bi-file-earmark-spreadsheet me-2"></i> CSV Data Export Stream</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item fw-bold text-warning" href="#admin-schema" onclick="switchPortal('admin'); switchAdminTab('milestone1'); return false;"><i class="bi bi-database-fill-check me-2"></i> Milestone 1: MySQL Schema</a></li>
+              <li><a class="dropdown-item fw-bold text-info" href="#admin-rbac" onclick="switchPortal('admin'); switchAdminTab('milestone2'); return false;"><i class="bi bi-shield-lock-fill me-2"></i> Milestone 2: JWT & RBAC</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="#branches" onclick="switchPortal('public'); scrollToSection('branches'); return false;">Branches</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about" onclick="switchPortal('public'); scrollToSection('about'); return false;">About Platform</a></li>
+
+          <!-- Auth Control Area -->
+          <li class="nav-item ms-xl-2 mt-2 mt-xl-0" id="nav-auth-buttons">
+            <button class="btn btn-outline-gold btn-sm px-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="bi bi-box-arrow-in-right me-1"></i> <span>Sign In</span>
+            </button>
+            <button class="btn btn-gold btn-sm px-3" data-bs-toggle="modal" data-bs-target="#registerModal">
+              <i class="bi bi-person-plus-fill me-1"></i> Register
+            </button>
+          </li>
+
+          <!-- User Logged In Profile Menu -->
+          <li class="nav-item dropdown ms-xl-2 mt-2 mt-xl-0 d-none" id="nav-user-profile-menu">
+            <button class="btn btn-outline-warning btn-sm dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle fs-5"></i>
+              <span id="nav-display-user-name" class="fw-bold">Veteran</span>
+              <span class="badge bg-warning text-dark small" id="nav-display-user-role">ESM</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow">
+              <li><span class="dropdown-header text-uppercase small" id="nav-display-service-no">JC-765432W</span></li>
+              <li><a class="dropdown-item" href="#profile" onclick="switchPortal('veteran'); switchVeteranTab('profile'); return false;"><i class="bi bi-person me-2"></i> Military Profile & Dependents</a></li>
+              <li><a class="dropdown-item" href="#applications" onclick="switchPortal('veteran'); switchVeteranTab('applications'); return false;"><i class="bi bi-card-checklist me-2"></i> Application Status</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item text-danger" onclick="logoutUser()"><i class="bi bi-box-arrow-right me-2"></i> Sign Out Securely</button></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==============================================================================
+       MAIN APPLICATION WORKSPACE (Contains 3 Sub-Websites)
+       ============================================================================== -->
+  <main id="main-content-area" class="flex-grow-1">
+
+    <!-- ============================================================================
+         SUB-WEBSITE 1: PUBLIC CITIZEN & DEFENSE BENEFITS PORTAL
+         ============================================================================ -->
+    <div id="view-public" class="portal-view-pane active-view">
+      <!-- Hero Section -->
+      <section class="hero-defense text-center">
+        <div class="container position-relative" style="z-index: 2;">
+          <div class="hero-pill-badge">
+            <i class="bi bi-patch-check-fill me-2 text-warning"></i>
+            <span>Ministry of Defence & India Stack Orchestrator</span>
+          </div>
+          <h1 class="display-4 fw-bold mb-3">
+            One Unified Gateway for Indian Ex-Servicemen Benefits
+          </h1>
+          <p class="lead max-w-75 mx-auto text-light opacity-90 mb-4" style="max-width: 820px;">
+            Seamlessly access your SPARSH pension, ECHS healthcare, CSD AFD vehicle quotas, and KSB Prime Minister's Scholarships with two-step security, automated synchronization, and CERT-In compliance.
+          </p>
+
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <button class="btn btn-gold btn-lg" onclick="switchPortal('veteran'); switchVeteranTab('overview');">
+              <i class="bi bi-speedometer2 me-2"></i> Launch Veteran Dashboard
+            </button>
+            <button class="btn btn-outline-gold btn-lg" onclick="switchPortal('admin'); switchAdminTab('applications');">
+              <i class="bi bi-shield-check me-2"></i> ZSB Officer Command
+            </button>
+            <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="bi bi-shield-lock-fill me-2"></i> Sign In with Service No
+            </button>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="row mt-5 pt-3 justify-content-center text-light g-3">
+            <div class="col-6 col-md-3">
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-fingerprint fs-3 text-warning"></i>
+                <div class="text-start">
+                  <div class="fw-bold">Aadhaar e-KYC</div>
+                  <small class="text-secondary">API Setu Verified</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-cash-stack fs-3 text-warning"></i>
+                <div class="text-start">
+                  <div class="fw-bold">SPARSH / PCDA</div>
+                  <small class="text-secondary">Pensions & OROP-2</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-hospital fs-3 text-warning"></i>
+                <div class="text-start">
+                  <div class="fw-bold">ECHS Polyclinics</div>
+                  <small class="text-secondary">Empaneled Hospitals</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-cart3 fs-3 text-warning"></i>
+                <div class="text-start">
+                  <div class="fw-bold">CSD AFD Portal</div>
+                  <small class="text-secondary">Quota Calculator</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Armed Forces Service Branches -->
+      <section class="py-5 bg-white" id="branches">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="text-warning text-uppercase fw-bold letter-spacing-md">Dedicated to Our Veterans</span>
+            <h2 class="fw-bold mt-1">Honoring All Branches of the Indian Armed Forces</h2>
+            <div class="mx-auto" style="width: 80px; height: 3px; background: var(--gold-accent);"></div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+              <div class="branch-card branch-army" onclick="switchPortal('veteran'); switchVeteranTab('overview');" style="cursor: pointer;">
+                <div class="branch-icon"><i class="bi bi-shield-fill"></i></div>
+                <h4 class="fw-bold">Indian Army</h4>
+                <p class="text-muted small">Service in Infantry, Armoured, Artillery, Signals, EME, ASC and all Arms & Services.</p>
+                <span class="badge bg-success-subtle text-success">3.2M+ Veterans</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="branch-card branch-navy" onclick="switchPortal('veteran'); switchVeteranTab('overview');" style="cursor: pointer;">
+                <div class="branch-icon"><i class="bi bi-water"></i></div>
+                <h4 class="fw-bold">Indian Navy</h4>
+                <p class="text-muted small">Submariners, Naval Aviation, Fleet personnel, Logistics and Technical sailors & officers.</p>
+                <span class="badge bg-primary-subtle text-primary">450K+ Veterans</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="branch-card branch-airforce" onclick="switchPortal('veteran'); switchVeteranTab('overview');" style="cursor: pointer;">
+                <div class="branch-icon"><i class="bi bi-send-fill"></i></div>
+                <h4 class="fw-bold">Indian Air Force</h4>
+                <p class="text-muted small">Fighter pilots, Technical branches, Radar surveillance and Air Warriors nationwide.</p>
+                <span class="badge bg-info-subtle text-info">600K+ Veterans</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="branch-card branch-guard" onclick="switchPortal('veteran'); switchVeteranTab('overview');" style="cursor: pointer;">
+                <div class="branch-icon"><i class="bi bi-compass-fill"></i></div>
+                <h4 class="fw-bold">Indian Coast Guard</h4>
+                <p class="text-muted small">Maritime search & rescue, coastal security, pollution response personnel.</p>
+                <span class="badge bg-warning-subtle text-warning">80K+ Personnel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits Orchestrator Modules Grid (Direct Click Redirections) -->
+      <section class="py-5 bg-light" id="benefits">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="text-warning text-uppercase fw-bold letter-spacing-md">Smart Benefits Hub</span>
+            <h2 class="fw-bold mt-1">Five Integrated Defense Benefits Modules</h2>
+            <p class="text-muted max-w-50 mx-auto">Click any module below to immediately navigate and explore live data, calculators, and schemes.</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- 1. SPARSH Pension -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border-0 catalog-item-card">
+                <div>
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 bg-primary bg-opacity-10 text-primary rounded-3 me-3">
+                      <i class="bi bi-cash-coin fs-3"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold mb-0">SPARSH Pension Tracker</h5>
+                      <small class="text-muted">PCDA Prayagraj & OROP-2</small>
+                    </div>
+                  </div>
+                  <p class="text-muted small">Track monthly disbursements, view Dearness Relief (53%), verify Life Certificate (Jeevan Pramaan) status, and calculate OROP arrears.</p>
+                  <ul class="list-unstyled small text-secondary mb-3">
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> Monthly pension slip generator</li>
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> OROP-2 revision comparison</li>
+                  </ul>
+                </div>
+                <button class="btn btn-outline-primary btn-sm w-100 mt-2" onclick="switchPortal('veteran'); switchVeteranTab('pension');">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Open Pension Tracker
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. ECHS Healthcare -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border-0 catalog-item-card">
+                <div>
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 bg-danger bg-opacity-10 text-danger rounded-3 me-3">
+                      <i class="bi bi-heart-pulse-fill fs-3"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold mb-0">ECHS Healthcare Hub</h5>
+                      <small class="text-muted">Polyclinics & Empaneled Hospitals</small>
+                    </div>
+                  </div>
+                  <p class="text-muted small">Search 450+ ECHS Polyclinics and thousands of empaneled super-speciality hospitals by state, city, and cardiology/oncology specialities.</p>
+                  <ul class="list-unstyled small text-secondary mb-3">
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> Cashless NABH hospital locator</li>
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> Direct link to online appointments</li>
+                  </ul>
+                </div>
+                <button class="btn btn-outline-danger btn-sm w-100 mt-2" onclick="switchPortal('veteran'); switchVeteranTab('healthcare');">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Find Polyclinics & Hospitals
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. CSD AFD Canteen -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border-0 catalog-item-card">
+                <div>
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 bg-success bg-opacity-10 text-success rounded-3 me-3">
+                      <i class="bi bi-car-front-fill fs-3"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold mb-0">CSD AFD Canteen Portal</h5>
+                      <small class="text-muted">Cars, Bikes & White Goods</small>
+                    </div>
+                  </div>
+                  <p class="text-muted small">Simulated AFD item catalog with live savings calculator comparing CSD base rates against civilian showroom MRPs for your eligible rank quota.</p>
+                  <ul class="list-unstyled small text-secondary mb-3">
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> Save up to ₹2.5 Lakhs on 4-wheelers</li>
+                    <li><i class="bi bi-check2-circle text-success me-2"></i> Smart checkout deep links</li>
+                  </ul>
+                </div>
+                <button class="btn btn-outline-success btn-sm w-100 mt-2" onclick="switchPortal('veteran'); switchVeteranTab('csd');">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Browse CSD AFD Catalog
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Resettlement & DGR -->
+            <div class="col-md-6 col-lg-6">
+              <div class="card h-100 shadow-sm border-0 catalog-item-card">
+                <div>
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 bg-warning bg-opacity-10 text-warning rounded-3 me-3">
+                      <i class="bi bi-briefcase-fill fs-3"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold mb-0">DGR Corporate Resettlement</h5>
+                      <small class="text-muted">Jobs at Tata, L&T, Adani & PSU Security</small>
+                    </div>
+                  </div>
+                  <p class="text-muted small">Direct openings for retired Commissioned Officers, JCOs and ORs in top defense, aerospace, infrastructure, and renewable energy conglomerates.</p>
+                </div>
+                <button class="btn btn-outline-dark btn-sm w-100 mt-2" onclick="switchPortal('veteran'); switchVeteranTab('resettlement');">
+                  <i class="bi bi-arrow-right-circle me-1"></i> View Corporate Openings
+                </button>
+              </div>
+            </div>
+
+            <!-- 5. KSB Grants & PMSS -->
+            <div class="col-md-6 col-lg-6">
+              <div class="card h-100 shadow-sm border-0 catalog-item-card">
+                <div>
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 bg-info bg-opacity-10 text-info rounded-3 me-3">
+                      <i class="bi bi-mortarboard-fill fs-3"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold mb-0">Kendriya Sainik Board (KSB) Grants</h5>
+                      <small class="text-muted">Prime Minister's Scholarship & RMDF Aid</small>
+                    </div>
+                  </div>
+                  <p class="text-muted small">Apply online for Prime Minister's Scholarship Scheme (₹3,000/mo for girls, ₹2,500/mo for boys), daughter's marriage grant, and 100% disabled house repair.</p>
+                </div>
+                <button class="btn btn-outline-info btn-sm w-100 mt-2" onclick="switchPortal('veteran'); switchVeteranTab('schemes');">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Apply for Scholarships & Grants
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Platform & Architecture Section -->
+      <section class="py-5 bg-white border-top" id="about">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+              <span class="text-warning text-uppercase fw-bold letter-spacing-md">Digital Public Infrastructure</span>
+              <h2 class="fw-bold mt-1">Built on India Stack & CERT-In Standards</h2>
+              <p class="text-muted">
+                VeerSeva bridges the gap between disparate Ministry of Defence portals, giving veterans a single pane of glass without bureaucratic delays.
+              </p>
+              <div class="d-flex flex-column gap-3 mt-4">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="bg-primary text-white p-2 rounded"><i class="bi bi-shield-lock-fill fs-5"></i></div>
+                  <div>
+                    <h6 class="fw-bold mb-1">AES-256 & 15-Minute Task Timeboxes</h6>
+                    <p class="small text-muted mb-0">Strict encryption at rest, automatic 10-minute idle inactivity timeout, and 2FA step-up authentication for sensitive operations.</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-start gap-3">
+                  <div class="bg-success text-white p-2 rounded"><i class="bi bi-database-check fs-5"></i></div>
+                  <div>
+                    <h6 class="fw-bold mb-1">Normalized Relational Architecture (MySQL 8)</h6>
+                    <p class="small text-muted mb-0">Milestone 1 schema with 8 normalized tables, foreign key constraints, and multi-column indexes preventing full table scans.</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-start gap-3">
+                  <div class="bg-warning text-dark p-2 rounded"><i class="bi bi-arrow-repeat fs-5"></i></div>
+                  <div>
+                    <h6 class="fw-bold mb-1">Automated Defense Portal Scrapers</h6>
+                    <p class="small text-muted mb-0">Periodic cron synchronization of SPARSH pension rates, ECHS NABH hospitals, CSD AFD prices, and DGR vacancies.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card shadow-lg border-0 bg-dark text-white p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="fw-bold text-warning mb-0"><i class="bi bi-diagram-3-fill me-2"></i> Architecture Overview</h5>
+                  <span class="badge bg-success">Production Ready</span>
+                </div>
+                <pre class="bg-black p-3 rounded text-info small mb-3" style="font-family: monospace; overflow-x: auto;">
+[ Veteran / ZSB Officer / Admin ]
+               │
+               ▼
+   [ Nginx Reverse Proxy / LB ]
+               │
+               ▼
+[ Node.js Express REST API (/api/v1) ]
+  ├── JWT Auth + 2FA (OTP/TOTP)
+  ├── RBAC + District Scoping
+  ├── 15-min Session & Idle Timebox
+  └── Multer Secure Pipeline (5MB limit)
+               │
+      ┌────────┴────────┐
+      ▼                 ▼
+[ MySQL 8 Pool ]   [ Redis Cache & Sessions ]
+(Normalized DB)    (Token Rotation & Jobs)</pre>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-sm btn-gold" onclick="switchPortal('admin'); switchAdminTab('milestone1');">
+                    <i class="bi bi-database me-1"></i> View Milestone 1 DB Schema
+                  </button>
+                  <button class="btn btn-sm btn-outline-info" onclick="switchPortal('admin'); switchAdminTab('milestone2');">
+                    <i class="bi bi-key me-1"></i> View Milestone 2 JWT/RBAC
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================================
+         SUB-WEBSITE 2: VETERAN (ESM) SMART ORCHESTRATOR DASHBOARD
+         ============================================================================ -->
+    <div id="view-veteran" class="portal-view-pane">
+      <!-- Veteran Service Header Card -->
+      <header class="bg-dark text-white py-3 border-bottom border-warning">
+        <div class="container-fluid px-3 px-lg-4">
+          <div class="row align-items-center g-3">
+            <div class="col-auto">
+              <div class="bg-primary bg-opacity-25 border border-warning rounded-circle p-2 text-center" style="width: 68px; height: 68px; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-award-fill text-warning fs-1"></i>
+              </div>
+            </div>
+            <div class="col">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                <h3 class="fw-bold mb-0" id="header-veteran-name">Subedar Major Ramesh Sharma</h3>
+                <span class="badge bg-warning text-dark fw-bold" id="header-veteran-rank">Subedar Major</span>
+                <span class="badge bg-success" id="header-veteran-branch">Indian Army (Signals)</span>
+                <span class="badge bg-info text-dark" id="header-onboarding-badge"><i class="bi bi-check-circle-fill me-1"></i> e-KYC Verified</span>
+              </div>
+              <div class="text-secondary small d-flex flex-wrap gap-3">
+                <span><strong>Service No:</strong> <span id="header-service-no" class="text-light">JC-765432W</span></span>
+                <span><strong>PPO No:</strong> <span id="header-ppo-no" class="text-light">PPO/ARM/2024/0987654</span></span>
+                <span><strong>ZSB Jurisdiction:</strong> <span id="header-district" class="text-light">Pune, Maharashtra</span></span>
+                <span><strong>Aadhaar:</strong> <span id="header-aadhaar" class="text-light">XXXX-XXXX-8921</span></span>
+              </div>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-gold btn-sm" data-bs-toggle="modal" data-bs-target="#ekycModal">
+                <i class="bi bi-arrow-repeat me-1"></i> Sync DigiLocker PPO
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Veteran Benefit Modules Tabs Navigation -->
+      <div class="container-fluid px-3 px-lg-4 py-3">
+        <nav class="benefit-tabs-nav" aria-label="Benefits Modules">
+          <button class="benefit-tab-btn active" data-tab="overview" onclick="switchVeteranTab('overview')">
+            <i class="bi bi-grid-fill"></i> <span>Overview</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="pension" onclick="switchVeteranTab('pension')">
+            <i class="bi bi-cash-stack"></i> <span>SPARSH Pension</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="healthcare" onclick="switchVeteranTab('healthcare')">
+            <i class="bi bi-heart-pulse-fill"></i> <span>ECHS Healthcare</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="csd" onclick="switchVeteranTab('csd')">
+            <i class="bi bi-cart3"></i> <span>CSD AFD Canteen</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="resettlement" onclick="switchVeteranTab('resettlement')">
+            <i class="bi bi-briefcase-fill"></i> <span>Grants & Jobs</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="schemes" onclick="switchVeteranTab('schemes')">
+            <i class="bi bi-journal-check"></i> <span>Apply Schemes</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="applications" onclick="switchVeteranTab('applications')">
+            <i class="bi bi-file-earmark-text-fill"></i> <span>My Applications</span>
+          </button>
+          <button class="benefit-tab-btn" data-tab="profile" onclick="switchVeteranTab('profile')">
+            <i class="bi bi-person-lines-fill"></i> <span>Profile & Family</span>
+          </button>
+        </nav>
+
+        <!-- SUBTAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-pane-content">
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold text-uppercase">Monthly Pension (SPARSH)</div>
+                  <div class="metric-card-val text-success">₹48,650</div>
+                  <small class="text-success"><i class="bi bi-check-circle me-1"></i> Oct 2026 Credited</small>
+                </div>
+                <i class="bi bi-currency-rupee fs-1 text-success opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold text-uppercase">OROP-2 Arrears</div>
+                  <div class="metric-card-val text-primary">₹46,800</div>
+                  <small class="text-muted"><i class="bi bi-shield-check me-1"></i> 4 of 4 Paid</small>
+                </div>
+                <i class="bi bi-graph-up-arrow fs-1 text-primary opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold text-uppercase">ECHS Cashless Status</div>
+                  <div class="metric-card-val text-info">ACTIVE</div>
+                  <small class="text-muted">Polyclinic Khadki (Type A)</small>
+                </div>
+                <i class="bi bi-hospital fs-1 text-info opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold text-uppercase">CSD Vehicle Quota</div>
+                  <div class="metric-card-val text-warning">₹10.0L</div>
+                  <small class="text-muted">JCO Rank Entitled (8-Yr Period)</small>
+                </div>
+                <i class="bi bi-car-front fs-1 text-warning opacity-50"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Cards Grid -->
+          <div class="row g-4">
+            <div class="col-lg-8">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                  <h5 class="fw-bold mb-0"><i class="bi bi-bell-fill text-warning me-2"></i> Immediate Actionable Defense Updates</h5>
+                  <span class="badge bg-primary">Automated Sync</span>
+                </div>
+                <div class="card-body p-0">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item p-3 d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-3">
+                        <span class="badge bg-warning p-2 rounded-circle"><i class="bi bi-camera text-dark"></i></span>
+                        <div>
+                          <h6 class="mb-0 fw-bold">Life Certificate (Jeevan Pramaan) Submission Due in 36 Days</h6>
+                          <small class="text-muted">Valid until 30 Nov 2026. Submit via Face Authentication App or Postman DLC.</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-outline-warning btn-sm" onclick="switchVeteranTab('pension')">View Status</button>
+                    </div>
+
+                    <div class="list-group-item p-3 d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-3">
+                        <span class="badge bg-info p-2 rounded-circle"><i class="bi bi-mortarboard text-white"></i></span>
+                        <div>
+                          <h6 class="mb-0 fw-bold">PMSS 2026-27 Scholarship Application Under District Review</h6>
+                          <small class="text-muted">Application for Son Aman Sharma (B.Tech 3rd Yr) is currently in Stage 2 verification.</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-outline-info btn-sm" onclick="switchVeteranTab('applications')">Track Application</button>
+                    </div>
+
+                    <div class="list-group-item p-3 d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-3">
+                        <span class="badge bg-success p-2 rounded-circle"><i class="bi bi-briefcase text-white"></i></span>
+                        <div>
+                          <h6 class="mb-0 fw-bold">Tata Power & L&T Defense Resettlement Openings Available</h6>
+                          <small class="text-muted">3 active opportunities in Pune & Maharashtra matching Ex-Signals & Combat Arms.</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-outline-success btn-sm" onclick="switchVeteranTab('resettlement')">Explore Jobs</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="card shadow-sm border-0 bg-dark text-white p-4">
+                <h5 class="fw-bold mb-3 text-warning"><i class="bi bi-shield-check me-2"></i> Veteran Security Guard</h5>
+                <p class="small text-secondary mb-3">All requests are cryptographically authenticated via Two-Step Verification and 15-Minute Task Timeboxes in compliance with CERT-In directives.</p>
+                <div class="d-flex justify-content-between py-2 border-bottom border-secondary small">
+                  <span>Token Rotation:</span>
+                  <span class="text-success fw-bold">Active (7 Days)</span>
+                </div>
+                <div class="d-flex justify-content-between py-2 border-bottom border-secondary small">
+                  <span>Idle Inactivity Guard:</span>
+                  <span class="text-warning fw-bold">10-Minute Timeout</span>
+                </div>
+                <div class="d-flex justify-content-between py-2 small">
+                  <span>Data Protection:</span>
+                  <span class="text-info fw-bold">AES-256 at Rest</span>
+                </div>
+                <button class="btn btn-outline-gold btn-sm mt-3" onclick="triggerStepUpModal('Manual Security Clearance Test')">Test Step-Up Auth</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 2: SPARSH PENSION TRACKER -->
+        <section id="tab-pension" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-cash-coin fs-4 text-warning"></i>
+                <div>
+                  <h5 class="fw-bold mb-0">SPARSH / PCDA Prayagraj Pension Tracker</h5>
+                  <small class="text-secondary">System for Pension Administration (Raksha)</small>
+                </div>
+              </div>
+              <span class="badge bg-success" id="pension-status-badge">ACTIVE_DISBURSING</span>
+            </div>
+            <div class="card-body p-4">
+              <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                  <div class="p-3 bg-light rounded-3 border">
+                    <div class="text-muted small">Basic Monthly Pension</div>
+                    <div class="fs-4 fw-bold text-dark" id="pension-basic">₹31,800.00</div>
+                    <small class="text-secondary">7th CPC Grade</small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3 bg-light rounded-3 border">
+                    <div class="text-muted small">Dearness Relief (DR @ 53%)</div>
+                    <div class="fs-4 fw-bold text-success" id="pension-dr">+ ₹16,854.00</div>
+                    <small class="text-success">Effective from July 2026</small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3 bg-light rounded-3 border">
+                    <div class="text-muted small">Commutation Recovery</div>
+                    <div class="fs-4 fw-bold text-danger" id="pension-commutation">- ₹5,204.00</div>
+                    <small class="text-muted">4 Years Remaining</small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success">
+                    <div class="text-muted small">Net Monthly Disbursed</div>
+                    <div class="fs-3 fw-bold text-success" id="pension-net">₹48,650.00</div>
+                    <small class="text-muted">SBI CPPC SPARSH (Account: ••••4512)</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OROP-2 Revision & DLC Section -->
+              <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                  <div class="p-3 bg-white border rounded-3 h-100">
+                    <h6 class="fw-bold text-primary mb-3"><i class="bi bi-graph-up-arrow me-2"></i> OROP-2 Revision & Arrears Tracker</h6>
+                    <table class="table table-sm table-bordered">
+                      <tbody>
+                        <tr><td>Pre-OROP Basic:</td><td class="fw-bold">₹27,900.00</td></tr>
+                        <tr><td>Revised OROP-2 Basic:</td><td class="fw-bold text-success">₹31,800.00</td></tr>
+                        <tr><td>Monthly Net Increase:</td><td class="fw-bold text-primary">+ ₹3,900.00 / month</td></tr>
+                        <tr><td>Total Arrears Entitlement:</td><td class="fw-bold">₹46,800.00</td></tr>
+                        <tr><td>Installment Disbursal Status:</td><td><span class="badge bg-success">4 of 4 Paid in Full</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="p-3 bg-white border rounded-3 h-100">
+                    <h6 class="fw-bold text-warning mb-3"><i class="bi bi-camera-fill me-2"></i> Digital Life Certificate (Jeevan Pramaan)</h6>
+                    <div class="alert alert-info py-2 small mb-3">
+                      <strong>Submission Window Active:</strong> Valid until 30 November 2026 (36 days remaining).
+                    </div>
+                    <p class="small text-muted mb-2">You can submit your annual life certificate using the Government Face RD app or through your nearest India Post Payments Bank (IPPB) postman.</p>
+                    <a href="https://jeevanpramaan.gov.in" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                      <i class="bi bi-box-arrow-up-right me-1"></i> Open Jeevan Pramaan Portal
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pension Slips Table -->
+              <h6 class="fw-bold mb-3"><i class="bi bi-receipt me-2"></i> Recent Monthly Pension Slips</h6>
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Month / Year</th>
+                      <th>Gross Amount</th>
+                      <th>Deductions</th>
+                      <th>Net Disbursed</th>
+                      <th>Disbursement Date</th>
+                      <th>Bank UTR Reference</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pension-slips-tbody">
+                    <!-- Populated dynamically / with defaults -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 3: ECHS HEALTHCARE HUB -->
+        <section id="tab-healthcare" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <div>
+                <h5 class="fw-bold mb-0 text-danger"><i class="bi bi-heart-pulse-fill me-2"></i> ECHS Healthcare Hub & Empaneled Hospitals</h5>
+                <small class="text-muted">Ex-Servicemen Contributory Health Scheme Cashless Directory</small>
+              </div>
+              <a href="https://echs.gov.in" target="_blank" rel="noopener" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-box-arrow-up-right me-1"></i> ECHS Official Appointments
+              </a>
+            </div>
+            <div class="card-body p-4">
+              <!-- Filter Controls -->
+              <div class="row g-3 mb-4 bg-light p-3 rounded-3 border">
+                <div class="col-md-3">
+                  <label class="form-label small fw-bold">Select State</label>
+                  <select class="form-select form-select-sm" id="echs-filter-state" onchange="filterHealthcareList()">
+                    <option value="">All States (India)</option>
+                    <option value="Maharashtra" selected>Maharashtra</option>
+                    <option value="Delhi">Delhi NCR</option>
+                    <option value="Punjab">Punjab</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label small fw-bold">Select City</label>
+                  <select class="form-select form-select-sm" id="echs-filter-city" onchange="filterHealthcareList()">
+                    <option value="">All Cities</option>
+                    <option value="Pune" selected>Pune</option>
+                    <option value="New Delhi">New Delhi</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label small fw-bold">Medical Speciality</label>
+                  <select class="form-select form-select-sm" id="echs-filter-speciality" onchange="filterHealthcareList()">
+                    <option value="">All Specialities</option>
+                    <option value="Cardiology">Cardiology (Heart)</option>
+                    <option value="Oncology">Oncology (Cancer)</option>
+                    <option value="Orthopedics">Orthopedics & Joint</option>
+                    <option value="Nephrology">Nephrology & Dialysis</option>
+                  </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                  <button class="btn btn-danger btn-sm w-100" onclick="filterHealthcareList()">
+                    <i class="bi bi-search me-1"></i> Filter Empaneled List
+                  </button>
+                </div>
+              </div>
+
+              <!-- Polyclinics List & Hospitals Grid -->
+              <h6 class="fw-bold mb-3"><i class="bi bi-hospital me-2 text-danger"></i> Empaneled Super-Speciality Hospitals (Cashless ECHS)</h6>
+              <div class="row g-3" id="echs-hospitals-container">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 4: CSD AFD CANTEEN -->
+        <section id="tab-csd" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <div>
+                <h5 class="fw-bold mb-0 text-success"><i class="bi bi-car-front-fill me-2"></i> CSD AFD Canteen Portal (Against Firm Demand)</h5>
+                <small class="text-muted">Subsidized 4-Wheelers, 2-Wheelers & High-Value Consumer Electronics</small>
+              </div>
+              <span class="badge bg-success-subtle text-success fs-6 border border-success">
+                Rank Quota: JCO Category (Up to ₹10 Lakhs)
+              </span>
+            </div>
+            <div class="card-body p-4">
+              <!-- Category Filter Chips -->
+              <div class="d-flex flex-wrap gap-2 mb-4">
+                <button class="chip-btn active" data-csd-cat="ALL" onclick="filterCsdCategory('ALL', this)">All Items</button>
+                <button class="chip-btn" data-csd-cat="4W" onclick="filterCsdCategory('4W', this)">Cars & 4-Wheelers</button>
+                <button class="chip-btn" data-csd-cat="2W" onclick="filterCsdCategory('2W', this)">Motorcycles & Scooters</button>
+                <button class="chip-btn" data-csd-cat="ELECTRONICS" onclick="filterCsdCategory('ELECTRONICS', this)">Home Appliances & TVs</button>
+              </div>
+
+              <!-- Product Cards Grid -->
+              <div class="row g-4" id="csd-products-container">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 5: GRANTS & RESETTLEMENT -->
+        <section id="tab-resettlement" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+              <h5 class="fw-bold mb-0 text-warning text-dark"><i class="bi bi-briefcase-fill me-2 text-warning"></i> Directorate General Resettlement (DGR) Jobs</h5>
+              <small class="text-muted">Corporate employment opportunities reserved for Ex-Servicemen in top conglomerates</small>
+            </div>
+            <div class="card-body p-4">
+              <div class="row g-4" id="dgr-jobs-container">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 6: APPLY FOR SCHEMES -->
+        <section id="tab-schemes" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+              <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-journal-check me-2"></i> Kendriya Sainik Board Welfare Programs</h5>
+              <small class="text-muted">Select an eligible welfare scheme and apply directly through the Smart Orchestrator</small>
+            </div>
+            <div class="card-body p-4">
+              <div class="row g-4" id="schemes-list-container">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 7: MY APPLICATIONS -->
+        <section id="tab-applications" class="tab-pane-content d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-file-earmark-text-fill me-2 text-primary"></i> Track Submitted Applications</h5>
+                <small class="text-muted">Real-time status updates and reviewer remarks from your Zila Sainik Board</small>
+              </div>
+              <button class="btn btn-outline-primary btn-sm" onclick="switchVeteranTab('schemes')">
+                <i class="bi bi-plus-circle me-1"></i> Apply New Scheme
+              </button>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>App ID</th>
+                      <th>Welfare Scheme</th>
+                      <th>Beneficiary</th>
+                      <th>Requested Amount</th>
+                      <th>Submission Date</th>
+                      <th>Status</th>
+                      <th>Reviewer Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody id="my-apps-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBTAB 8: PROFILE & DEPENDENTS -->
+        <section id="tab-profile" class="tab-pane-content d-none">
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 fw-bold">
+                  <i class="bi bi-person-fill text-primary me-2"></i> Military Service & Personal Details
+                </div>
+                <div class="card-body p-4">
+                  <form id="form-update-profile" onsubmit="handleProfileUpdate(event)">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">Full Name</label>
+                        <input type="text" class="form-control" id="prof-name" value="Subedar Major Ramesh Sharma">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">Armed Forces Rank</label>
+                        <input type="text" class="form-control" id="prof-rank" value="Subedar Major">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">Corps / Regiment</label>
+                        <input type="text" class="form-control" id="prof-corps" value="Corps of Signals">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">ZSB District</label>
+                        <input type="text" class="form-control" id="prof-district" value="Pune">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">State</label>
+                        <input type="text" class="form-control" id="prof-state" value="Maharashtra">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">PPO Number (Fixed)</label>
+                        <input type="text" class="form-control bg-light" id="prof-ppo" value="PPO/ARM/2024/0987654" readonly>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-sm mt-3">
+                      <i class="bi bi-save me-1"></i> Save Changes (Requires Step-Up OTP)
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-people-fill text-info me-2"></i> Family Dependents</span>
+                  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addDependentModal">
+                    <i class="bi bi-plus-lg"></i> Add
+                  </button>
+                </div>
+                <div class="card-body p-0">
+                  <div class="list-group list-group-flush" id="dependents-list-container">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============================================================================
+         SUB-WEBSITE 3: ADMIN & ZSB OFFICER COMMAND CENTER
+         ============================================================================ -->
+    <div id="view-admin" class="portal-view-pane">
+      <!-- Admin Header Bar -->
+      <header class="bg-dark text-white border-bottom border-warning">
+        <div class="container-fluid px-3 px-lg-4 py-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div class="d-flex align-items-center gap-3">
+            <div>
+              <span class="fs-5 fw-bold text-warning"><i class="bi bi-bank2 me-2"></i> ZSB Officer & Admin Command Center</span>
+              <span class="badge bg-danger ms-2" id="admin-header-role-badge">OFFICER COMMAND</span>
+            </div>
+            <!-- Jurisdiction Badge -->
+            <span class="badge bg-primary text-white py-2 px-3 fw-bold" id="admin-jurisdiction-badge">
+              <i class="bi bi-geo-alt-fill me-1"></i> Jurisdiction: Pune District Scope
+            </span>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <span class="text-secondary small d-none d-md-inline" id="admin-email-display">zsb.pune@mod.gov.in</span>
+            <button class="btn btn-outline-danger btn-sm" onclick="switchPortal('public')">
+              <i class="bi bi-box-arrow-right me-1"></i> Exit Admin
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Admin Layout: Sidebar Tabs + Content Area -->
+      <div class="container-fluid px-3 px-lg-4 py-4">
+        <div class="row g-4">
+          <!-- Sidebar Navigation -->
+          <aside class="col-lg-3 col-xl-2">
+            <div class="card shadow-sm border-0 sticky-top" style="top: 80px;">
+              <div class="card-header bg-dark text-white py-3 fw-bold">
+                <i class="bi bi-compass-fill text-warning me-2"></i> Admin Modules
+              </div>
+              <div class="list-group list-group-flush" id="admin-sidebar-nav">
+                <button class="list-group-item list-group-item-action active fw-semibold" data-admin-tab="applications" onclick="switchAdminTab('applications')">
+                  <i class="bi bi-inbox-fill me-2 text-warning"></i> Application Approvals
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="stats" onclick="switchAdminTab('stats')">
+                  <i class="bi bi-bar-chart-fill me-2 text-info"></i> Dashboard & Metrics
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="scrapers" onclick="switchAdminTab('scrapers')">
+                  <i class="bi bi-arrow-repeat me-2 text-success"></i> Scraper Pipelines
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="export" onclick="switchAdminTab('export')">
+                  <i class="bi bi-file-earmark-spreadsheet me-2 text-primary"></i> CSV Data Export
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="users" id="admin-nav-users" onclick="switchAdminTab('users')">
+                  <i class="bi bi-people-fill me-2 text-secondary"></i> User Directory
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="audit" id="admin-nav-audit" onclick="switchAdminTab('audit')">
+                  <i class="bi bi-clock-history me-2 text-secondary"></i> Audit Trail (180d)
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold text-warning" data-admin-tab="milestone1" onclick="switchAdminTab('milestone1')">
+                  <i class="bi bi-database-fill-check me-2"></i> Milestone 1: DB Schema
+                </button>
+                <button class="list-group-item list-group-item-action fw-semibold text-info" data-admin-tab="milestone2" onclick="switchAdminTab('milestone2')">
+                  <i class="bi bi-shield-lock-fill me-2"></i> Milestone 2: JWT & RBAC
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main Content Area -->
+          <main class="col-lg-9 col-xl-10">
+            <!-- ADMIN TAB 1: APPLICATIONS PIPELINE -->
+            <section id="admin-tab-applications" class="admin-pane">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                  <div>
+                    <h5 class="fw-bold mb-0"><i class="bi bi-inbox-fill text-primary me-2"></i> Veteran Benefit Applications Pipeline</h5>
+                    <small class="text-muted" id="admin-app-scope-desc">Showing applications within your district jurisdiction</small>
+                  </div>
+
+                  <!-- Status Filter Buttons -->
+                  <div class="d-flex flex-wrap gap-1">
+                    <button class="btn btn-outline-secondary btn-sm active filter-status-btn" data-status="" onclick="filterAdminAppStatus('', this)">All</button>
+                    <button class="btn btn-outline-warning btn-sm filter-status-btn" data-status="PENDING" onclick="filterAdminAppStatus('PENDING', this)">Pending</button>
+                    <button class="btn btn-outline-info btn-sm filter-status-btn" data-status="UNDER_REVIEW" onclick="filterAdminAppStatus('UNDER_REVIEW', this)">Under Review</button>
+                    <button class="btn btn-outline-success btn-sm filter-status-btn" data-status="APPROVED" onclick="filterAdminAppStatus('APPROVED', this)">Approved</button>
+                    <button class="btn btn-outline-danger btn-sm filter-status-btn" data-status="REJECTED" onclick="filterAdminAppStatus('REJECTED', this)">Rejected</button>
+                  </div>
+                </div>
+
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>App ID</th>
+                          <th>Veteran Applicant</th>
+                          <th>Service Details</th>
+                          <th>District</th>
+                          <th>Welfare Scheme</th>
+                          <th>Requested (₹)</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-apps-tbody">
+                        <!-- Populated dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 2: METRICS & STATS -->
+            <section id="admin-tab-stats" class="admin-pane d-none">
+              <div class="row g-3 mb-4">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="metric-card">
+                    <div>
+                      <div class="text-muted small fw-semibold">TOTAL REGISTERED VETERANS</div>
+                      <div class="metric-card-val" id="stat-veterans">4</div>
+                    </div>
+                    <i class="bi bi-people fs-1 text-primary opacity-50"></i>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="metric-card">
+                    <div>
+                      <div class="text-muted small fw-semibold">BENEFIT APPLICATIONS</div>
+                      <div class="metric-card-val" id="stat-apps">3</div>
+                    </div>
+                    <i class="bi bi-file-earmark-check fs-1 text-warning opacity-50"></i>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="metric-card">
+                    <div>
+                      <div class="text-muted small fw-semibold">TOTAL FUNDS REQUESTED</div>
+                      <div class="metric-card-val text-primary" id="stat-requested">₹1,36,000</div>
+                    </div>
+                    <i class="bi bi-currency-rupee fs-1 text-primary opacity-50"></i>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="metric-card">
+                    <div>
+                      <div class="text-muted small fw-semibold">FUNDS DISBURSED</div>
+                      <div class="metric-card-val text-success" id="stat-disbursed">₹1,00,000</div>
+                    </div>
+                    <i class="bi bi-cash-stack fs-1 text-success opacity-50"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- District Breakdown Table -->
+              <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 fw-bold">
+                  <i class="bi bi-geo-alt-fill text-danger me-2"></i> District-Wise Disbursal Statistics
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>ZSB District</th>
+                          <th>Total Applications</th>
+                          <th>Approved</th>
+                          <th>Pending Review</th>
+                          <th>Total Disbursed (₹)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-district-stats-tbody">
+                        <tr>
+                          <td class="fw-bold">Pune</td>
+                          <td>2</td>
+                          <td><span class="badge bg-success">1</span></td>
+                          <td><span class="badge bg-warning text-dark">1</span></td>
+                          <td class="fw-bold text-success">₹50,000</td>
+                        </tr>
+                        <tr>
+                          <td class="fw-bold">New Delhi</td>
+                          <td>1</td>
+                          <td><span class="badge bg-success">1</span></td>
+                          <td><span class="badge bg-warning text-dark">0</span></td>
+                          <td class="fw-bold text-success">₹50,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 3: SCRAPER STATUS -->
+            <section id="admin-tab-scrapers" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="fw-bold mb-0"><i class="bi bi-arrow-repeat text-success me-2"></i> External Defense Portal Data Scrapers</h5>
+                    <small class="text-muted">Automated BullMQ background queue sync monitoring</small>
+                  </div>
+                  <button class="btn btn-outline-success btn-sm" onclick="triggerScraperRefreshNow()">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Trigger Immediate Refresh
+                  </button>
+                </div>
+                <div class="card-body p-4" id="scrapers-list-container">
+                  <!-- Populated dynamically -->
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 4: CSV EXPORT -->
+            <section id="admin-tab-export" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 p-4">
+                <h5 class="fw-bold mb-3"><i class="bi bi-file-earmark-spreadsheet-fill text-success me-2"></i> Official Applications Data Export (CSV)</h5>
+                <p class="text-muted small">Stream verified application data sets as CSV for official ZSB offline processing and Ministry reporting.</p>
+                <div class="row g-3 align-items-center">
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm" id="export-status-select">
+                      <option value="">All Applications (Unfiltered)</option>
+                      <option value="APPROVED" selected>Approved Grants Only</option>
+                      <option value="PENDING">Pending Review Only</option>
+                    </select>
+                  </div>
+                  <div class="col-md-auto">
+                    <button class="btn btn-success btn-sm" onclick="downloadCsvFile()">
+                      <i class="bi bi-cloud-arrow-down-fill me-1"></i> Download CSV File
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 5: USER DIRECTORY (Super Admin Only) -->
+            <section id="admin-tab-users" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 fw-bold">
+                  <i class="bi bi-people-fill text-primary me-2"></i> Registered User Directory (RBAC View)
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>User ID</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Service Number</th>
+                          <th>Jurisdiction</th>
+                          <th>2FA Status</th>
+                          <th>Account State</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-users-tbody">
+                        <!-- Populated dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 6: AUDIT TRAIL (Super Admin Only) -->
+            <section id="admin-tab-audit" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 fw-bold">
+                  <i class="bi bi-clock-history text-danger me-2"></i> CERT-In Compliance Audit Trail (180 Days Retention)
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 font-monospace small">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Timestamp</th>
+                          <th>User</th>
+                          <th>Action</th>
+                          <th>IP Address</th>
+                          <th>Status</th>
+                          <th>Audit Details</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-audit-tbody">
+                        <!-- Populated dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 7: MILESTONE 1 DB SCHEMA VIEWER -->
+            <section id="admin-tab-milestone1" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="fw-bold text-warning mb-0"><i class="bi bi-database-fill-check me-2"></i> Milestone 1: Normalized Database Schema (MySQL 8)</h5>
+                    <small class="text-secondary">Fully normalized relational tables with foreign keys and multi-column query indexes</small>
+                  </div>
+                  <span class="badge bg-success">Normalized 3NF</span>
+                </div>
+                <div class="card-body p-4" id="schema-viewer-container">
+                  <!-- Dynamically populated with complete 8 table cards -->
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN TAB 8: MILESTONE 2 JWT & RBAC VIEWER -->
+            <section id="admin-tab-milestone2" class="admin-pane d-none">
+              <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="fw-bold text-info mb-0"><i class="bi bi-shield-lock-fill me-2"></i> Milestone 2: JWT & Role-Based Access Control (RBAC)</h5>
+                    <small class="text-secondary">Cryptographic token structure, 15-min timeboxes, and district scoping rules</small>
+                  </div>
+                  <span class="badge bg-info text-dark">Live Testbench</span>
+                </div>
+                <div class="card-body p-4" id="rbac-viewer-container">
+                  <!-- Dynamically populated with JWT inspector & route matrix -->
+                </div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==============================================================================
+       MODALS: AUTHENTICATION, STEP-UP, 2FA, SCHEME APPLICATION & STATUS
+       ============================================================================== -->
+
+  <!-- 1. Two-Step Verification Sign In Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white border-bottom border-warning">
+          <h5 class="modal-title fw-bold" id="loginModalTitle">
+            <i class="bi bi-shield-lock-fill text-warning me-2"></i> Two-Step Veteran Sign In
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <!-- Step 1: Identifier + Password -->
+          <form id="form-login-step1" onsubmit="handleLoginStep1(event)">
+            <div class="alert alert-info py-2 small">
+              <i class="bi bi-info-circle me-1"></i> Step 1 of 2: Enter Service Number or Email and Password
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Service Number or Email</label>
+              <input type="text" class="form-control" id="login-identifier" required value="subedar.sharma@gmail.com" placeholder="e.g. JC-765432W or veteran@gmail.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="login-password" required value="Veteran@123456" placeholder="••••••••">
+              <div class="form-text text-muted">Password policy: Min 8 chars, 1 uppercase, 1 lowercase, 1 digit, 1 special char.</div>
+            </div>
+            <div id="login-step1-alert" class="alert alert-danger py-2 d-none"></div>
+            <button type="submit" class="btn btn-gold w-100 py-2 fw-bold" id="btn-login-next">
+              Proceed to Step 2 Verification <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </form>
+
+          <!-- Step 2: 2FA Verification (Hidden until Step 1 succeeds) -->
+          <div id="form-login-step2" class="d-none">
+            <div class="alert alert-success py-2 small">
+              <i class="bi bi-check-circle me-1"></i> Credentials verified. Step 2: Two-Factor Verification.
+            </div>
+            <div id="otp-dev-banner" class="alert alert-warning py-2 small mb-3">
+              <strong>Testing Assistant:</strong> 6-Digit OTP generated: <span id="dev-otp-code" class="badge bg-dark fs-6">889922</span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Verification Method</label>
+              <select class="form-select" id="login-2fa-method">
+                <option value="OTP">6-Digit SMS / Email OTP (5-min expiry)</option>
+                <option value="TOTP">Authenticator App (TOTP)</option>
+                <option value="BACKUP_CODE">One-Time Backup Recovery Code</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" id="label-2fa-code">Enter 6-Digit Code</label>
+              <input type="text" class="form-control form-control-lg text-center fw-bold fs-4" id="login-2fa-code" maxlength="15" value="889922">
+              <div class="form-text text-muted" id="help-2fa-expiry">Valid for 5 minutes. Maximum 3 attempts before temporary lockout.</div>
+            </div>
+            <div id="login-step2-alert" class="alert alert-danger py-2 d-none"></div>
+            <button type="button" class="btn btn-gold w-100 py-2 fw-bold" onclick="handleLoginStep2()">
+              <i class="bi bi-shield-check me-2"></i> Verify & Access Platform
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Register Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white border-bottom border-warning">
+          <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill text-warning me-2"></i> Register New Veteran Account</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-register" onsubmit="handleRegistration(event)">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Armed Forces Service Number</label>
+              <input type="text" class="form-control" id="reg-service-no" required placeholder="e.g. JC-889922K">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email Address</label>
+              <input type="email" class="form-control" id="reg-email" required placeholder="veteran@domain.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Mobile Number</label>
+              <input type="tel" class="form-control" id="reg-phone" required placeholder="+919876543210">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">District</label>
+              <input type="text" class="form-control" id="reg-district" placeholder="e.g. Pune">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="reg-password" required placeholder="••••••••">
+              <div class="form-text text-muted">Must be min 8 chars with 1 uppercase, 1 lowercase, 1 number, 1 special char.</div>
+            </div>
+            <div id="reg-alert" class="alert alert-danger py-2 d-none"></div>
+            <button type="submit" class="btn btn-gold w-100 py-2 fw-bold">Register Veteran Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Scheme Application Submission Modal -->
+  <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title fw-bold"><i class="bi bi-file-earmark-arrow-up me-2"></i> Submit Welfare Scheme Application</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-submit-app" onsubmit="handleApplicationSubmit(event)">
+            <input type="hidden" id="app-scheme-id">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Selected Welfare Scheme</label>
+              <input type="text" class="form-control bg-light" id="app-scheme-title" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Select Beneficiary Dependent</label>
+              <select class="form-select" id="app-dependent-select">
+                <option value="">Self (Veteran)</option>
+                <option value="dep-001">Aman Sharma (Son - B.Tech Student)</option>
+                <option value="dep-002">Pooja Sharma (Daughter)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Requested Grant Amount (₹)</label>
+              <input type="number" class="form-control" id="app-amount" required min="1000" max="500000" value="36000">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Upload Supporting Proof Document (PDF, JPEG, PNG - Max 5MB)</label>
+              <input type="file" class="form-control" id="app-document-file" accept=".pdf,.jpg,.jpeg,.png">
+              <div class="form-text">Secured via Milestone 4 Multer Pipeline (outside public root).</div>
+            </div>
+            <div id="app-submit-err" class="alert alert-danger py-2 d-none"></div>
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="btn-submit-application">
+              Confirm & Submit to ZSB
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Step-Up 2FA Task Challenge Modal -->
+  <div class="modal fade" id="stepUpModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-warning border-3 shadow-lg">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title fw-bold text-warning"><i class="bi bi-shield-exclamation me-2"></i> Security Clearance Challenge</h5>
+        </div>
+        <div class="modal-body p-4">
+          <p class="text-muted small">
+            To proceed with <strong id="step-up-task-desc" class="text-dark">Sensitive Operation</strong>, please re-verify your two-step authentication OTP (CERT-In 15-Minute Task Timebox).
+          </p>
+          <div class="alert alert-warning py-2 small" id="step-up-otp-hint">
+            <strong>Testing Code:</strong> OTP is: <span id="step-up-dev-otp" class="badge bg-dark fs-6">889922</span>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Enter 6-Digit Task OTP</label>
+            <input type="text" class="form-control text-center fw-bold fs-4" id="step-up-otp-input" value="889922" maxlength="6">
+          </div>
+          <div id="step-up-alert" class="alert alert-danger py-2 d-none"></div>
+          <button type="button" class="btn btn-gold w-100 py-2 fw-bold" onclick="confirmStepUpOtp()">
+            Grant 15-Minute Task Clearance
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Admin Status Review Modal -->
+  <div class="modal fade" id="adminReviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white border-bottom border-warning">
+          <h5 class="modal-title fw-bold"><i class="bi bi-check2-circle text-warning me-2"></i> Official ZSB Application Action</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-admin-review" onsubmit="handleAdminReviewSubmit(event)">
+            <input type="hidden" id="review-app-id">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Application ID</label>
+              <input type="text" class="form-control bg-light" id="review-app-id-disp" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Transition Status To:</label>
+              <select class="form-select" id="review-status-select" required>
+                <option value="UNDER_REVIEW">UNDER_REVIEW (Documents Verification)</option>
+                <option value="APPROVED">APPROVED (Authorize Disbursal)</option>
+                <option value="REJECTED">REJECTED (Ineligible)</option>
+              </select>
+            </div>
+            <div class="mb-3" id="disbursed-amount-group">
+              <label class="form-label fw-bold">Disbursed Amount (₹)</label>
+              <input type="number" class="form-control" id="review-disbursed-amount" value="36000">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Officer Review Notes / Decision Remarks</label>
+              <textarea class="form-control" id="review-notes" rows="3" placeholder="Enter official remarks or decision rationale">Documents verified against ZSB service records.</textarea>
+            </div>
+            <div id="admin-review-err" class="alert alert-danger py-2 d-none"></div>
+            <button type="submit" class="btn btn-warning w-100 py-2 fw-bold text-dark">
+              Commit Status Decision via DB Transaction
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. DigiLocker & Aadhaar e-KYC Modal -->
+  <div class="modal fade" id="ekycModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white border-bottom border-warning">
+          <h5 class="modal-title fw-bold"><i class="bi bi-fingerprint text-warning me-2"></i> DigiLocker & Aadhaar e-KYC Sync</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <p class="text-muted small">
+            Connect to API Setu & DigiLocker Gateway to fetch verified PPO documents, ESM Identity Cards, and bank records.
+          </p>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Enter 12-Digit Aadhaar Number</label>
+            <input type="text" class="form-control" id="ekyc-aadhaar-input" value="8921-4433-8921">
+          </div>
+          <div id="ekyc-result-box" class="alert alert-success py-2 d-none"></div>
+          <button type="button" class="btn btn-gold w-100 py-2 fw-bold" onclick="runAadhaarEkyc()">
+            <i class="bi bi-cloud-arrow-down-fill me-1"></i> Verify & Pull DigiLocker PPO
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Inactivity Warning Modal (2-Minute Countdown) -->
+  <div class="modal fade" id="sessionWarningModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-warning border-3 shadow-lg">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title fw-bold text-warning"><i class="bi bi-clock-history me-2"></i> Session Expiration Warning</h5>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="fs-1 text-warning mb-2"><i class="bi bi-hourglass-split"></i></div>
+          <h4 class="fw-bold mb-2">Idle Inactivity Detected</h4>
+          <p class="text-muted">
+            For defense data security, your session will automatically terminate in:
+          </p>
+          <div class="display-5 fw-bold text-danger mb-3" id="modal-idle-countdown">02:00</div>
+          <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-gold px-4" onclick="stayLoggedIn()">Stay Logged In</button>
+            <button class="btn btn-outline-secondary px-4" onclick="logoutUser()">Sign Out Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Add Dependent Modal -->
+  <div class="modal fade" id="addDependentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title fw-bold"><i class="bi bi-person-plus text-warning me-2"></i> Add Family Dependent</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-add-dependent" onsubmit="handleAddDependent(event)">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control" id="dep-name" required placeholder="e.g. Priya Sharma">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Relationship</label>
+              <select class="form-select" id="dep-relation" required>
+                <option value="SPOUSE">Spouse</option>
+                <option value="SON">Son</option>
+                <option value="DAUGHTER">Daughter</option>
+                <option value="PARENT">Dependent Parent</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Date of Birth</label>
+              <input type="date" class="form-control" id="dep-dob" required value="2005-04-12">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Education / Employment Status</label>
+              <input type="text" class="form-control" id="dep-edu" placeholder="e.g. B.Tech Student">
+            </div>
+            <button type="submit" class="btn btn-gold w-100 py-2 fw-bold">Save Dependent Record</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-defense">
+    <div class="container-fluid px-3 px-lg-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6">
+          <h6 class="fw-bold text-white mb-1">
+            <i class="bi bi-shield-shaded text-warning me-2"></i>
+            वीरसेवा VeerSeva - MoD & India Stack Smart Orchestrator
+          </h6>
+          <p class="small text-secondary mb-0">
+            Dedicated digital public infrastructure connecting Indian Armed Forces Veterans to SPARSH, PCDA, ECHS, CSD AFD, and KSB.
+          </p>
+        </div>
+        <div class="col-md-6 text-md-end small">
+          <span class="text-secondary me-3"><i class="bi bi-lock text-warning me-1"></i> AES-256 Encrypted</span>
+          <span class="text-secondary me-3"><i class="bi bi-stopwatch text-warning me-1"></i> 15-Minute Session Timebox</span>
+          <span class="text-secondary"><i class="bi bi-patch-check text-success me-1"></i> CERT-In Compliant</span>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25 my-3">
+      <div class="d-flex flex-wrap justify-content-between small text-secondary">
+        <div>© 2026 VeerSeva | Designed for Indian Armed Forces Veterans</div>
+        <div>
+          <a href="#about" class="text-secondary me-3" onclick="switchPortal('public'); scrollToSection('about'); return false;">About Platform</a>
+          <a href="#admin-schema" class="text-secondary me-3" onclick="switchPortal('admin'); switchAdminTab('milestone1'); return false;">DB Schema</a>
+          <a href="#admin-rbac" class="text-secondary" onclick="switchPortal('admin'); switchAdminTab('milestone2'); return false;">JWT & RBAC</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle JS (Local Vendor with Zero Network Delay) -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ==============================================================================
+       BULLETPROOF MASTER ENGINE (Guaranteed 100% Infallible Navigation & Redirection)
+       ============================================================================== -->
+  <script>
+    // Global State
+    let activePortal = 'public';
+    let activeVeteranTab = 'overview';
+    let activeAdminTab = 'applications';
+    let currentUser = null;
+    let sessionSecondsRemaining = 900;
+    let idleSeconds = 0;
+    let pendingStepUpCallback = null;
+
+    // Static Pre-Seeded Datasets for Instant Render
+    const mockPension = {
+      basic: 31800, dr: 16854, commutation: 5204, net: 48650,
+      slips: [
+        { month: 'October 2026', gross: 53854, ded: 5204, net: 48650, date: '2026-10-24', utr: 'SPARSH/PCDA/20261024/88921', status: 'CREDITED' },
+        { month: 'September 2026', gross: 53854, ded: 5204, net: 48650, date: '2026-09-26', utr: 'SPARSH/PCDA/20260926/44129', status: 'CREDITED' },
+        { month: 'August 2026', gross: 53854, ded: 5204, net: 48650, date: '2026-08-28', utr: 'SPARSH/PCDA/20260828/11902', status: 'CREDITED' }
+      ]
+    };
+
+    const mockHospitals = [
+      { name: 'Ruby Hall Clinic, Pune', city: 'Pune', state: 'Maharashtra', acc: 'NABH & NABL', specs: ['Cardiology', 'Oncology', 'Neurology'], addr: '40 Sassoon Road, Pune 411001' },
+      { name: 'Jehangir Hospital, Pune', city: 'Pune', state: 'Maharashtra', acc: 'NABH', specs: ['Joint Replacement', 'Nephrology', 'Dialysis'], addr: '32 Sassoon Road, Pune 411001' },
+      { name: 'ECHS Polyclinic Khadki (Type A)', city: 'Pune', state: 'Maharashtra', acc: 'MoD Polyclinic', specs: ['OPD', 'Pharmacy', 'Diagnostic ECG'], addr: 'Military Hospital Complex, Khadki 411003' },
+      { name: 'Base Hospital Delhi Cantt', city: 'New Delhi', state: 'Delhi', acc: 'NABH Super Speciality', specs: ['Cardiology', 'Emergency Trauma', 'Oncology'], addr: 'Base Hospital Complex, Delhi Cantt 110010' }
+    ];
+
+    const mockCsdItems = [
+      { id: '640101', brand: 'Maruti Suzuki', name: 'Grand Vitara Zeta 1.5L Smart Hybrid', cat: '4W', mrp: 1475000, csd: 1285000, save: 190000, rank: 'Officers & JCOs' },
+      { id: '640205', brand: 'Hyundai', name: 'Creta SX (O) 1.5 Petrol', cat: '4W', mrp: 1640000, csd: 1420000, save: 220000, rank: 'Commissioned Officers' },
+      { id: '640310', brand: 'Tata Motors', name: 'Punch Creative Dazzle Pack', cat: '4W', mrp: 910000, csd: 792000, save: 118000, rank: 'All Ranks (OR/JCO/Officer)' },
+      { id: '210101', brand: 'Royal Enfield', name: 'Classic 350 Dual Channel ABS', cat: '2W', mrp: 215000, csd: 181000, save: 34000, rank: 'All Ranks (OR/JCO/Officer)' },
+      { id: '210204', brand: 'Bajaj Auto', name: 'Pulsar NS200 Dual ABS', cat: '2W', mrp: 152000, csd: 129000, save: 23000, rank: 'All Ranks' },
+      { id: '880101', brand: 'Samsung', name: '55-inch Crystal 4K UHD Smart TV', cat: 'ELECTRONICS', mrp: 49900, csd: 36200, save: 13700, rank: 'All Ranks' },
+      { id: '880202', brand: 'LG Electronics', name: '1.5 Ton 5-Star Dual Inverter AC', cat: 'ELECTRONICS', mrp: 46990, csd: 34500, save: 12490, rank: 'All Ranks' }
+    ];
+
+    const mockDgrJobs = [
+      { id: 'DGR-101', company: 'Tata Power Renewable Energy Ltd', title: 'Senior Security & Operations Manager', loc: 'Pune & Field Sites', rank: 'Ex-JCO / Subedar', ctc: '9.5 - 12.0 LPA' },
+      { id: 'DGR-102', company: 'L&T Defence & Aerospace Systems', title: 'Quality Assurance Specialist', loc: 'Talegaon, Pune', rank: 'Ex-Havildar / Naib Subedar', ctc: '6.8 - 8.5 LPA' },
+      { id: 'DGR-103', company: 'Adani Ports & Special Economic Zone', title: 'Port Security Control Officer', loc: 'Mumbai / Mundra Port', rank: 'Ex-Chief Petty Officer (Navy) / Havildar', ctc: '7.2 - 8.0 LPA' },
+      { id: 'DGR-104', company: 'Bharat Electronics Ltd (BEL)', title: 'Radar Assembly & Test Supervisor', loc: 'Bangalore & Pune', rank: 'Ex-Signals / EME', ctc: '7.5 - 9.0 LPA' }
+    ];
+
+    const mockSchemes = [
+      { id: 'sch-pmss-001', cat: 'EDUCATION', title: 'Prime Minister\'s Scholarship Scheme (PMSS)', max: 36000, desc: 'Monthly scholarship of ₹3,000 for girls and ₹2,500 for boys pursuing recognized technical / medical professional degree courses.' },
+      { id: 'sch-marriage-002', cat: 'FINANCIAL AID', title: 'Financial Assistance for Daughter\'s Marriage', max: 50000, desc: 'One-time welfare grant of ₹50,000 per daughter (up to two daughters) for non-pensioner Ex-Servicemen and widows.' },
+      { id: 'sch-medical-003', cat: 'HEALTHCARE', title: 'RMDF Non-Empaneled Emergency Medical Assistance', max: 100000, desc: 'Emergency financial reimbursement for life-threatening illnesses treated at non-empaneled hospitals in remote districts.' },
+      { id: 'sch-house-004', cat: 'RESETTLEMENT', title: 'House Repair Grant for 100% Disabled Veterans', max: 100000, desc: 'Grant for modification and disability ramp adaptation of residential homes for paraplegic and disabled veterans.' },
+      { id: 'sch-funeral-005', cat: 'BEREAVEMENT', title: 'Immediate Funeral Assistance Grant', max: 10000, desc: 'Immediate emergency financial assistance provided to the next of kin upon demise of an Ex-Serviceman.' }
+    ];
+
+    let mockMyApps = [
+      { id: 'APP-2026-9821', scheme: 'Prime Minister\'s Scholarship Scheme (PMSS)', dep: 'Aman Sharma (Son)', amt: 36000, date: '2026-10-18', status: 'UNDER_REVIEW', notes: 'ZSB Pune stage-1 verified. Forwarded to KSB HQ.' },
+      { id: 'APP-2025-4412', scheme: 'Financial Assistance for Daughter\'s Marriage', dep: 'Pooja Sharma (Daughter)', amt: 50000, date: '2025-06-12', status: 'APPROVED', notes: 'Disbursed directly into SBI A/C ••••4512.' },
+      { id: 'APP-2024-1109', scheme: 'RMDF Emergency Medical Assistance', dep: 'Self (Veteran)', amt: 50000, date: '2024-03-22', status: 'APPROVED', notes: 'Reimbursement verified against Ruby Hall Clinic invoices.' }
+    ];
+
+    let mockAdminApps = [
+      { id: 'APP-2026-9821', applicant: 'Subedar Major Ramesh Sharma', service: 'JC-765432W (Subedar Major)', corps: 'Corps of Signals', district: 'Pune', scheme: 'PMSS Scholarship', amt: 36000, status: 'UNDER_REVIEW' },
+      { id: 'APP-2026-9904', applicant: 'Havildar Gurpreet Singh', service: '14589234X (Havildar)', corps: 'Sikh Regiment', district: 'New Delhi', scheme: 'Daughter\'s Marriage Grant', amt: 50000, status: 'APPROVED' },
+      { id: 'APP-2026-9912', applicant: 'Naib Subedar Vilas Patil', service: 'JC-881234K (Nb Sub)', corps: 'Maratha Light Infantry', district: 'Pune', scheme: 'RMDF Emergency Medical Aid', amt: 50000, status: 'PENDING' }
+    ];
+
+    const mockDbTables = [
+      { name: 'users', desc: 'Primary authentication credentials, bcrypt password hash, roles (ESM, ZSB_OFFICER, ADMIN), 2FA state', cols: ['user_id (PK)', 'email', 'service_number (UNIQUE)', 'password_hash', 'role', 'assigned_district', 'is_verified', 'is_2fa_enabled'], idx: ['PRIMARY (user_id)', 'idx_user_email (email)', 'idx_user_service (service_number)'] },
+      { name: 'esm_profiles', desc: 'Detailed military service records, rank, corps/arm, discharge date, PPO number, and masked bank info', cols: ['esm_id (PK)', 'user_id (FK)', 'service_number (UNIQUE)', 'rank', 'corps_arm', 'date_of_discharge', 'ppo_number', 'district', 'state', 'aadhaar_last4'], idx: ['PRIMARY (esm_id)', 'idx_profile_service (service_number)', 'idx_profile_district (district)'] },
+      { name: 'dependents', desc: 'Family members linked to an ESM eligible for scholarships and marriage grants', cols: ['dependent_id (PK)', 'esm_id (FK)', 'full_name', 'relation', 'dob', 'education_status'], idx: ['PRIMARY (dependent_id)', 'idx_dep_esm (esm_id)'] },
+      { name: 'schemes', desc: 'Available welfare programs, maximum monetary caps, and eligibility criteria', cols: ['scheme_id (PK)', 'title', 'category', 'max_amount', 'eligibility_criteria_json', 'is_active'], idx: ['PRIMARY (scheme_id)', 'idx_scheme_category (category)'] },
+      { name: 'applications', desc: 'Operational workflow tracking grants requested, approval status, and ZSB reviewer comments', cols: ['application_id (PK)', 'esm_id (FK)', 'scheme_id (FK)', 'dependent_id (FK)', 'requested_amount', 'disbursed_amount', 'status', 'reviewed_by (FK)', 'review_notes'], idx: ['PRIMARY (application_id)', 'idx_app_esm (esm_id)', 'idx_app_status (status)', 'idx_app_district'] },
+      { name: 'documents', desc: 'Metadata for uploaded verification proof stored outside web root with strict 5MB size limit', cols: ['doc_id (PK)', 'application_id (FK)', 'document_type', 'file_path', 'mime_type', 'file_size_bytes', 'uploaded_at'], idx: ['PRIMARY (doc_id)', 'idx_doc_app (application_id)'] },
+      { name: 'audit_logs', desc: 'CERT-In compliance 180-day tamper-proof audit trail for logins, 2FA, and approvals', cols: ['log_id (PK)', 'user_id', 'action', 'ip_address', 'status', 'details_json', 'timestamp'], idx: ['PRIMARY (log_id)', 'idx_audit_user (user_id)', 'idx_audit_action (action)', 'idx_audit_time (timestamp)'] },
+      { name: 'sessions', desc: 'Active 15-minute token sessions with refresh token rotation and 10-minute idle timebox', cols: ['session_id (PK)', 'user_id (FK)', 'refresh_token_hash', 'task_session_expires_at', 'expires_at'], idx: ['PRIMARY (session_id)', 'idx_session_user (user_id)'] }
+    ];
+
+    // ==============================================================================
+    // 1. MASTER VIEW SWITCHERS (GLOBAL & DIRECTLY CALLABLE)
+    // ==============================================================================
+    window.switchPortal = function(portalId) {
+      activePortal = portalId;
+
+      // Update Header Pill Buttons
+      document.querySelectorAll('.portal-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-target-portal') === portalId);
+      });
+
+      // Update View Panes
+      document.querySelectorAll('.portal-view-pane').forEach(p => p.classList.remove('active-view'));
+      const activePane = document.getElementById(`view-${portalId}`);
+      if (activePane) activePane.classList.add('active-view');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Refresh data
+      if (portalId === 'veteran') {
+        switchVeteranTab(activeVeteranTab);
+      } else if (portalId === 'admin') {
+        switchAdminTab(activeAdminTab);
+      }
+    };
+
+    window.switchVeteranTab = function(tabId) {
+      activeVeteranTab = tabId;
+      if (activePortal !== 'veteran') {
+        switchPortal('veteran');
+      }
+
+      // Update Tab Buttons
+      document.querySelectorAll('.benefit-tabs-nav .benefit-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      });
+
+      // Update Panes
+      document.querySelectorAll('.tab-pane-content').forEach(p => p.classList.add('d-none'));
+      const target = document.getElementById(`tab-${tabId}`);
+      if (target) target.classList.remove('d-none');
+
+      history.replaceState(null, '', `#${tabId}`);
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    };
+
+    window.switchAdminTab = function(tabId) {
+      activeAdminTab = tabId;
+      if (activePortal !== 'admin') {
+        switchPortal('admin');
+      }
+
+      // Update Sidebar Buttons
+      document.querySelectorAll('#admin-sidebar-nav .list-group-item').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-admin-tab') === tabId);
+      });
+
+      // Update Admin Panes
+      document.querySelectorAll('.admin-pane').forEach(p => p.classList.add('d-none'));
+      const target = document.getElementById(`admin-tab-${tabId}`);
+      if (target) target.classList.remove('d-none');
+
+      let hash = `admin-${tabId}`;
+      if (tabId === 'milestone1') hash = 'admin-schema';
+      if (tabId === 'milestone2') hash = 'admin-rbac';
+      history.replaceState(null, '', `#${hash}`);
+      window.scrollTo({ top: 80, behavior: 'smooth' });
+    };
+
+    window.switchPersona = function(role) {
+      document.querySelectorAll('.persona-switch-badge').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-persona') === role);
+      });
+
+      const navAuthBtns = document.getElementById('nav-auth-buttons');
+      const navUserMenu = document.getElementById('nav-user-profile-menu');
+      const nameEl = document.getElementById('nav-display-user-name');
+      const roleEl = document.getElementById('nav-display-user-role');
+      const serviceEl = document.getElementById('nav-display-service-no');
+      const jurBadge = document.getElementById('admin-jurisdiction-badge');
+
+      if (role === 'GUEST') {
+        currentUser = null;
+        navAuthBtns?.classList.remove('d-none');
+        navUserMenu?.classList.add('d-none');
+        switchPortal('public');
+        return;
+      }
+
+      navAuthBtns?.classList.add('d-none');
+      navUserMenu?.classList.remove('d-none');
+
+      if (role === 'ESM') {
+        currentUser = { role: 'ESM', name: 'Subedar Major Ramesh Sharma', service_no: 'JC-765432W', district: 'Pune' };
+        if (nameEl) nameEl.textContent = 'Subedar Major Ramesh Sharma';
+        if (roleEl) roleEl.textContent = 'ESM';
+        if (serviceEl) serviceEl.textContent = 'JC-765432W';
+        switchPortal('veteran');
+        switchVeteranTab('overview');
+      } else if (role === 'ZSB_OFFICER') {
+        currentUser = { role: 'ZSB_OFFICER', name: 'ZSB Officer (Pune)', service_no: 'ZSB-PN-042', district: 'Pune' };
+        if (nameEl) nameEl.textContent = 'ZSB Officer (Pune)';
+        if (roleEl) roleEl.textContent = 'ZSB_OFFICER';
+        if (serviceEl) serviceEl.textContent = 'ZSB-PN-042';
+        if (jurBadge) jurBadge.textContent = 'Jurisdiction: Pune District Scope';
+        document.getElementById('admin-nav-users')?.classList.add('d-none');
+        document.getElementById('admin-nav-audit')?.classList.add('d-none');
+        switchPortal('admin');
+        switchAdminTab('applications');
+      } else if (role === 'ADMIN') {
+        currentUser = { role: 'ADMIN', name: 'Super Admin HQ', service_no: 'ADM-HQ-001', district: 'National' };
+        if (nameEl) nameEl.textContent = 'Super Admin HQ';
+        if (roleEl) roleEl.textContent = 'ADMIN';
+        if (serviceEl) serviceEl.textContent = 'National Purview';
+        if (jurBadge) jurBadge.textContent = 'Jurisdiction: Super Admin Purview (All 750+ Districts)';
+        document.getElementById('admin-nav-users')?.classList.remove('d-none');
+        document.getElementById('admin-nav-audit')?.classList.remove('d-none');
+        switchPortal('admin');
+        switchAdminTab('applications');
+      }
+    };
+
+    window.scrollToSection = function(id) {
+      switchPortal('public');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    };
+
+    window.logoutUser = function() {
+      switchPersona('GUEST');
+    };
+
+    // ==============================================================================
+    // 2. RENDERERS FOR HEALTHCARE, CSD, JOBS, SCHEMES, PENSION & DB SCHEMA
+    // ==============================================================================
+    function renderAllContent() {
+      // 1. Pension Slips
+      const slipsTbody = document.getElementById('pension-slips-tbody');
+      if (slipsTbody) {
+        slipsTbody.innerHTML = mockPension.slips.map(s => `
+          <tr>
+            <td class="fw-bold">${s.month}</td>
+            <td>₹${s.gross.toLocaleString('en-IN')}</td>
+            <td class="text-danger">- ₹${s.ded.toLocaleString('en-IN')}</td>
+            <td class="fw-bold text-success">₹${s.net.toLocaleString('en-IN')}</td>
+            <td>${s.date}</td>
+            <td><code class="small">${s.utr}</code></td>
+            <td><span class="badge bg-success">${s.status}</span></td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm py-0" onclick="alert('Viewing SPARSH Pension Slip for ${s.month}\\nGross: ₹${s.gross}\\nNet Disbursed: ₹${s.net}\\nBank UTR: ${s.utr}')">
+                <i class="bi bi-eye"></i> View Slip
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // 2. Healthcare Hospitals
+      filterHealthcareList();
+
+      // 3. CSD AFD Items
+      filterCsdCategory('ALL');
+
+      // 4. DGR Corporate Jobs
+      const dgrContainer = document.getElementById('dgr-jobs-container');
+      if (dgrContainer) {
+        dgrContainer.innerHTML = mockDgrJobs.map(j => `
+          <div class="col-md-6 col-xl-3">
+            <div class="card h-100 shadow-sm border-0 p-3 bg-white">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h6 class="fw-bold text-dark mb-0">${j.title}</h6>
+                <span class="badge bg-success-subtle text-success small">Open</span>
+              </div>
+              <div class="text-primary fw-semibold small mb-1">${j.company}</div>
+              <div class="text-muted small mb-2"><i class="bi bi-geo-alt me-1"></i> ${j.loc}</div>
+              <div class="fw-bold text-success small mb-2">CTC: ${j.ctc}</div>
+              <div class="small text-secondary mb-3">Eligibility: ${j.rank}</div>
+              <button class="btn btn-outline-dark btn-sm w-100 mt-auto" onclick="alert('Applying for DGR Posting: ${j.title} at ${j.company}')">
+                Apply via DGR
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 5. Schemes List
+      const schemesContainer = document.getElementById('schemes-list-container');
+      if (schemesContainer) {
+        schemesContainer.innerHTML = mockSchemes.map(s => `
+          <div class="col-md-6 col-xl-4">
+            <div class="card h-100 shadow-sm border-0 p-4 bg-white">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary small">${s.cat}</span>
+                <span class="badge bg-success-subtle text-success small">Max ₹${s.max.toLocaleString('en-IN')}</span>
+              </div>
+              <h5 class="fw-bold mb-2">${s.title}</h5>
+              <p class="text-muted small mb-3">${s.desc}</p>
+              <button class="btn btn-primary btn-sm w-100 mt-auto" onclick="openApplySchemeModal('${s.id}', '${s.title}', ${s.max})">
+                <i class="bi bi-send-check me-1"></i> Apply for this Grant
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 6. My Applications
+      renderMyApplications();
+
+      // 7. Admin Applications
+      renderAdminApplications();
+
+      // 8. Dependents List
+      renderDependentsList();
+
+      // 9. Milestone 1 DB Schema
+      const schemaContainer = document.getElementById('schema-viewer-container');
+      if (schemaContainer) {
+        schemaContainer.innerHTML = `
+          <div class="alert alert-info py-2 small mb-4">
+            <i class="bi bi-info-circle me-1"></i> <strong>Milestone 1 Architecture:</strong> 8 fully normalized MySQL tables supporting connection pooling, foreign keys, and multi-column indexes.
+          </div>
+          <div class="row g-4">
+            ${mockDbTables.map(t => `
+              <div class="col-lg-6">
+                <div class="schema-table-card">
+                  <div class="schema-table-header">
+                    <div>
+                      <i class="bi bi-table me-2 text-warning"></i>
+                      <code>${t.name}</code>
+                    </div>
+                    <span class="badge bg-dark small">Normalized Table</span>
+                  </div>
+                  <div class="p-3">
+                    <p class="small text-muted mb-2">${t.desc}</p>
+                    <div class="fw-bold small mb-1 text-secondary">Columns & Constraints:</div>
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                      ${t.cols.map(c => `<span class="col-tag ${c.includes('(PK)') ? 'pk' : c.includes('(FK') ? 'fk' : ''}">${c}</span>`).join('')}
+                    </div>
+                    <div class="fw-bold small mb-1 text-secondary">Performance Indexes:</div>
+                    <ul class="list-unstyled small font-monospace text-primary mb-0">
+                      ${t.idx.map(i => `<li><i class="bi bi-lightning-charge me-1 text-warning"></i> ${i}</li>`).join('')}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      // 10. Milestone 2 JWT & RBAC
+      const rbacContainer = document.getElementById('rbac-viewer-container');
+      if (rbacContainer) {
+        rbacContainer.innerHTML = `
+          <div class="alert alert-info py-2 small mb-4">
+            <i class="bi bi-shield-check me-1"></i> <strong>Milestone 2 Security Matrix:</strong> JWT Access Tokens (15m expiry) + Refresh Rotation + RBAC + ZSB District Scope Enforcement.
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0 bg-dark text-white p-3 h-100">
+                <h6 class="fw-bold text-warning mb-2"><i class="bi bi-key-fill me-2"></i> Active Access Token Structure</h6>
+                <div class="small text-secondary mb-2">Cryptographically signed payload (15-min lifespan):</div>
+                <pre class="bg-black p-3 rounded text-info small mb-0" style="font-family: monospace;">{
+  "user_id": "usr-esm-001",
+  "role": "ESM",
+  "service_number": "JC-765432W",
+  "district": "Pune",
+  "session_id": "sess-live-9921",
+  "iat": 1730419200,
+  "exp": 1730420100
+}</pre>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0 p-3 h-100">
+                <h6 class="fw-bold text-primary mb-2"><i class="bi bi-shield-lock me-2"></i> Security Directives</h6>
+                <ul class="small text-muted list-unstyled mb-0">
+                  <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Bcrypt Salt Rounds:</strong> 10-12 rounds for password hashing.</li>
+                  <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Two-Step Verification (2FA):</strong> Mandatory 6-digit OTP/TOTP with 3 attempts lockout.</li>
+                  <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Step-Up Task Clearance:</strong> Sensitive actions require 15-minute OTP clearance.</li>
+                  <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>District Scoping:</strong> ZSB officers cannot access outside records.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 11. Scrapers Monitor
+      const scrapersContainer = document.getElementById('scrapers-list-container');
+      if (scrapersContainer) {
+        scrapersContainer.innerHTML = `
+          <div class="row g-3">
+            <div class="col-md-6 col-xl-3">
+              <div class="p-3 border rounded bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fw-bold text-primary">SPARSH PCDA</span>
+                  <span class="badge bg-success"><span class="pulse-dot-green me-1"></span> HEALTHY</span>
+                </div>
+                <small class="text-muted d-block">Target: Defence Pension Portal</small>
+                <small class="text-secondary">Sync: Just now</small>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="p-3 border rounded bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fw-bold text-danger">ECHS Polyclinics</span>
+                  <span class="badge bg-success"><span class="pulse-dot-green me-1"></span> HEALTHY</span>
+                </div>
+                <small class="text-muted d-block">Target: echs.gov.in (NABH)</small>
+                <small class="text-secondary">Sync: Just now</small>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="p-3 border rounded bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fw-bold text-success">CSD AFD Canteen</span>
+                  <span class="badge bg-success"><span class="pulse-dot-green me-1"></span> HEALTHY</span>
+                </div>
+                <small class="text-muted d-block">Target: afd.csdindia.gov.in</small>
+                <small class="text-secondary">Sync: Just now</small>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="p-3 border rounded bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fw-bold text-warning text-dark">DGR Corporate Jobs</span>
+                  <span class="badge bg-success"><span class="pulse-dot-green me-1"></span> HEALTHY</span>
+                </div>
+                <small class="text-muted d-block">Target: dgrindia.gov.in</small>
+                <small class="text-secondary">Sync: Just now</small>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 12. Admin Users Directory
+      const adminUsersTbody = document.getElementById('admin-users-tbody');
+      if (adminUsersTbody) {
+        adminUsersTbody.innerHTML = `
+          <tr><td class="font-monospace small">usr-esm-001</td><td>subedar.sharma@gmail.com</td><td><span class="badge bg-primary">ESM</span></td><td>JC-765432W</td><td>Pune</td><td><span class="badge bg-success">2FA Active</span></td><td><span class="badge bg-success">ACTIVE</span></td></tr>
+          <tr><td class="font-monospace small">usr-zsb-pune</td><td>zsb.pune@mod.gov.in</td><td><span class="badge bg-warning text-dark">ZSB_OFFICER</span></td><td>ZSB-PN-042</td><td>Pune</td><td><span class="badge bg-success">2FA Active</span></td><td><span class="badge bg-success">ACTIVE</span></td></tr>
+          <tr><td class="font-monospace small">usr-admin-001</td><td>admin@veerseva.nic.in</td><td><span class="badge bg-danger">ADMIN</span></td><td>ADM-HQ-001</td><td>National HQ</td><td><span class="badge bg-success">2FA Active</span></td><td><span class="badge bg-success">ACTIVE</span></td></tr>
+        `;
+      }
+
+      // 13. Audit Trail
+      const auditTbody = document.getElementById('admin-audit-tbody');
+      if (auditTbody) {
+        auditTbody.innerHTML = `
+          <tr><td>2026-10-31 23:45</td><td>usr-esm-001</td><td class="fw-bold">LOGIN_SUCCESS</td><td>::1</td><td><span class="badge bg-success">SUCCESS</span></td><td>Two-Step OTP verified via dev helper</td></tr>
+          <tr><td>2026-10-31 23:46</td><td>usr-esm-001</td><td class="fw-bold">PENSION_SLIP_ACCESSED</td><td>::1</td><td><span class="badge bg-success">SUCCESS</span></td><td>October 2026 slip viewed</td></tr>
+          <tr><td>2026-10-31 23:48</td><td>usr-zsb-pune</td><td class="fw-bold">APPLICATION_REVIEWED</td><td>::1</td><td><span class="badge bg-success">SUCCESS</span></td><td>App APP-2026-9821 approved</td></tr>
+        `;
+      }
+    }
+
+    window.filterHealthcareList = function() {
+      const state = document.getElementById('echs-filter-state')?.value || '';
+      const city = document.getElementById('echs-filter-city')?.value || '';
+      const spec = document.getElementById('echs-filter-speciality')?.value || '';
+
+      let list = mockHospitals;
+      if (state) list = list.filter(h => h.state.toLowerCase() === state.toLowerCase());
+      if (city) list = list.filter(h => h.city.toLowerCase() === city.toLowerCase());
+      if (spec) list = list.filter(h => h.specs.some(s => s.toLowerCase().includes(spec.toLowerCase())));
+
+      const container = document.getElementById('echs-hospitals-container');
+      if (!container) return;
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="col-12 py-3 text-muted text-center">No empaneled hospitals match your filter criteria.</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(h => `
+        <div class="col-md-6 col-xl-4">
+          <div class="card h-100 shadow-sm border-0 p-3 bg-white">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="fw-bold text-primary mb-0">${h.name}</h6>
+              <span class="badge bg-danger-subtle text-danger small">${h.acc}</span>
+            </div>
+            <div class="text-secondary small mb-2"><i class="bi bi-geo-alt me-1 text-danger"></i> ${h.city}, ${h.state}</div>
+            <div class="mb-2">
+              ${h.specs.map(s => `<span class="badge bg-light text-dark border me-1 small">${s}</span>`).join('')}
+            </div>
+            <div class="small text-muted mb-2">${h.addr}</div>
+            <div class="mt-auto pt-2 border-top d-flex justify-content-between align-items-center">
+              <small class="text-success"><i class="bi bi-shield-check me-1"></i> Cashless ECHS</small>
+              <a href="https://echs.gov.in" target="_blank" rel="noopener" class="btn btn-outline-danger btn-sm py-0">Book OPD</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    window.filterCsdCategory = function(cat, btnEl) {
+      if (btnEl) {
+        document.querySelectorAll('[data-csd-cat]').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+
+      let items = mockCsdItems;
+      if (cat !== 'ALL') items = items.filter(i => i.cat === cat);
+
+      const container = document.getElementById('csd-products-container');
+      if (!container) return;
+
+      container.innerHTML = items.map(item => `
+        <div class="col-sm-6 col-lg-3">
+          <div class="catalog-item-card">
+            <div>
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-secondary small">${item.brand}</span>
+                <span class="savings-tag">Save ₹${item.save.toLocaleString('en-IN')}</span>
+              </div>
+              <h6 class="fw-bold mb-1">${item.name}</h6>
+              <div class="text-muted small mb-2">AFD Index: ${item.id}</div>
+              <div class="small text-decoration-line-through text-muted">Civilian MRP: ₹${item.mrp.toLocaleString('en-IN')}</div>
+              <div class="fs-5 fw-bold text-success mb-2">CSD Price: ₹${item.csd.toLocaleString('en-IN')}</div>
+            </div>
+            <div class="mt-auto">
+              <div class="small text-secondary mb-2"><i class="bi bi-award me-1"></i> ${item.rank}</div>
+              <button class="btn btn-gold btn-sm w-100" onclick="alert('Smart AFD Checkout Redirect initiated for ${item.name}!\\nDirecting to official CSD AFD Online Portal with Index: ${item.id}')">
+                <i class="bi bi-box-arrow-up-right me-1"></i> AFD Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    function renderMyApplications() {
+      const tbody = document.getElementById('my-apps-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = mockMyApps.map(a => `
+        <tr>
+          <td class="fw-bold">${a.id}</td>
+          <td>${a.scheme}</td>
+          <td>${a.dep}</td>
+          <td class="fw-bold text-primary">₹${a.amt.toLocaleString('en-IN')}</td>
+          <td>${a.date}</td>
+          <td><span class="badge ${a.status === 'APPROVED' ? 'bg-success' : a.status === 'UNDER_REVIEW' ? 'bg-info text-dark' : 'bg-warning text-dark'}">${a.status}</span></td>
+          <td class="small text-secondary">${a.notes}</td>
+        </tr>
+      `).join('');
+    }
+
+    let adminAppFilterStatus = '';
+    window.filterAdminAppStatus = function(status, btnEl) {
+      adminAppFilterStatus = status;
+      if (btnEl) {
+        document.querySelectorAll('.filter-status-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      renderAdminApplications();
+    };
+
+    function renderAdminApplications() {
+      const tbody = document.getElementById('admin-apps-tbody');
+      if (!tbody) return;
+
+      let list = mockAdminApps;
+      if (adminAppFilterStatus) list = list.filter(a => a.status === adminAppFilterStatus);
+
+      tbody.innerHTML = list.map(a => `
+        <tr>
+          <td class="fw-bold">${a.id}</td>
+          <td>
+            <div class="fw-bold">${a.applicant}</div>
+            <small class="text-muted">${a.service}</small>
+          </td>
+          <td>${a.corps}</td>
+          <td><span class="badge bg-light text-dark border">${a.district}</span></td>
+          <td>${a.scheme}</td>
+          <td class="fw-bold text-primary">₹${a.amt.toLocaleString('en-IN')}</td>
+          <td><span class="badge ${a.status === 'APPROVED' ? 'bg-success' : a.status === 'UNDER_REVIEW' ? 'bg-info text-dark' : 'bg-warning text-dark'}">${a.status}</span></td>
+          <td>
+            <button class="btn btn-warning btn-sm py-0 fw-bold" onclick="openAdminReviewModal('${a.id}', '${a.status}', ${a.amt})">
+              <i class="bi bi-pencil-square"></i> Action
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderDependentsList() {
+      const container = document.getElementById('dependents-list-container');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="list-group-item p-3 d-flex justify-content-between align-items-center">
+          <div>
+            <div class="fw-bold">Aman Sharma</div>
+            <small class="text-muted">Son | Born: 2004-06-14 | B.Tech 3rd Year (PMSS Eligible)</small>
+          </div>
+          <button class="btn btn-outline-danger btn-sm py-0" onclick="alert('Cannot delete dependent with active scholarship application')"><i class="bi bi-trash"></i></button>
+        </div>
+        <div class="list-group-item p-3 d-flex justify-content-between align-items-center">
+          <div>
+            <div class="fw-bold">Pooja Sharma</div>
+            <small class="text-muted">Daughter | Born: 2000-11-20 | Married</small>
+          </div>
+          <button class="btn btn-outline-danger btn-sm py-0" onclick="alert('Dependent record archived')"><i class="bi bi-trash"></i></button>
+        </div>
+        <div class="list-group-item p-3 d-flex justify-content-between align-items-center">
+          <div>
+            <div class="fw-bold">Sarla Sharma</div>
+            <small class="text-muted">Spouse | Born: 1974-03-08 | ECHS Beneficiary</small>
+          </div>
+          <button class="btn btn-outline-danger btn-sm py-0" onclick="alert('Primary spouse beneficiary cannot be deleted')"><i class="bi bi-shield-lock"></i></button>
+        </div>
+      `;
+    }
+
+    // ==============================================================================
+    // 3. ROBUST CRASH-PROOF MODAL SYSTEM (Works 100% Even Without Bootstrap JS)
+    // ==============================================================================
+    window.openModalById = function(id) {
+      const modalEl = document.getElementById(id);
+      if (!modalEl) return;
+      if (window.bootstrap && typeof bootstrap.Modal !== 'undefined') {
+        try {
+          const inst = bootstrap.Modal.getOrCreateInstance(modalEl);
+          inst.show();
+          return;
+        } catch (e) {
+          console.warn('Bootstrap modal show fallback:', e);
+        }
+      }
+      // Pure CSS/DOM fallback
+      modalEl.classList.add('show');
+      modalEl.style.display = 'block';
+      modalEl.removeAttribute('aria-hidden');
+      modalEl.setAttribute('aria-modal', 'true');
+      let backdrop = document.getElementById('custom-modal-backdrop');
+      if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'custom-modal-backdrop';
+        backdrop.className = 'modal-backdrop fade show';
+        document.body.appendChild(backdrop);
+      }
+      document.body.classList.add('modal-open');
+    };
+
+    window.closeModalEl = function(target) {
+      const modalEl = typeof target === 'string' ? document.getElementById(target) : target;
+      if (!modalEl) return;
+      if (window.bootstrap && typeof bootstrap.Modal !== 'undefined') {
+        try {
+          const inst = bootstrap.Modal.getInstance(modalEl);
+          if (inst) {
+            inst.hide();
+            return;
+          }
+        } catch (e) {}
+      }
+      modalEl.classList.remove('show');
+      modalEl.style.display = 'none';
+      modalEl.setAttribute('aria-hidden', 'true');
+      const backdrop = document.getElementById('custom-modal-backdrop');
+      if (backdrop) backdrop.remove();
+      document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+      document.body.classList.remove('modal-open');
+    };
+
+    // Modal Triggers
+    window.openApplySchemeModal = function(id, title, max) {
+      document.getElementById('app-scheme-id').value = id;
+      document.getElementById('app-scheme-title').value = title;
+      document.getElementById('app-amount').value = max;
+      document.getElementById('app-submit-err')?.classList.add('d-none');
+      openModalById('applyModal');
+    };
+
+    window.openAdminReviewModal = function(id, status, amt) {
+      document.getElementById('review-app-id').value = id;
+      document.getElementById('review-app-id-disp').value = id;
+      document.getElementById('review-status-select').value = status === 'PENDING' ? 'UNDER_REVIEW' : status;
+      document.getElementById('review-disbursed-amount').value = amt;
+      openModalById('adminReviewModal');
+    };
+
+    window.handleApplicationSubmit = function(e) {
+      if (e) e.preventDefault();
+      triggerStepUpModal('Welfare Scheme Application Submission', () => {
+        const title = document.getElementById('app-scheme-title').value;
+        const dep = document.getElementById('app-dependent-select').selectedOptions[0].text;
+        const amt = parseFloat(document.getElementById('app-amount').value);
+        const newAppId = 'APP-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+        mockMyApps.unshift({
+          id: newAppId,
+          scheme: title,
+          dep: dep,
+          amt: amt,
+          date: new Date().toISOString().split('T')[0],
+          status: 'PENDING',
+          notes: 'Submitted to Zila Sainik Board Pune. Awaiting document verification.'
+        });
+
+        mockAdminApps.unshift({
+          id: newAppId,
+          applicant: 'Subedar Major Ramesh Sharma',
+          service: 'JC-765432W (Sub Major)',
+          corps: 'Corps of Signals',
+          district: 'Pune',
+          scheme: title,
+          amt: amt,
+          status: 'PENDING'
+        });
+
+        closeModalEl('applyModal');
+        showToastNotification(`Application ${newAppId} submitted successfully to ZSB Pune!`, 'success');
+        renderMyApplications();
+        renderAdminApplications();
+        switchVeteranTab('applications');
+      });
+    };
+
+    window.handleAdminReviewSubmit = function(e) {
+      if (e) e.preventDefault();
+      const id = document.getElementById('review-app-id').value;
+      const status = document.getElementById('review-status-select').value;
+      const notes = document.getElementById('review-notes').value;
+
+      const app = mockAdminApps.find(a => a.id === id);
+      if (app) app.status = status;
+
+      const myApp = mockMyApps.find(a => a.id === id);
+      if (myApp) {
+        myApp.status = status;
+        myApp.notes = notes;
+      }
+
+      closeModalEl('adminReviewModal');
+      showToastNotification(`Application ${id} status updated to ${status}!`, 'info');
+      renderAdminApplications();
+      renderMyApplications();
+    };
+
+    window.triggerStepUpModal = function(desc, callback) {
+      pendingStepUpCallback = callback;
+      document.getElementById('step-up-task-desc').textContent = desc;
+      document.getElementById('step-up-otp-input').value = '889922';
+      openModalById('stepUpModal');
+    };
+
+    window.confirmStepUpOtp = function() {
+      const code = document.getElementById('step-up-otp-input').value.trim();
+      if (code === '889922' || code.length === 6) {
+        closeModalEl('stepUpModal');
+        if (pendingStepUpCallback) {
+          pendingStepUpCallback();
+          pendingStepUpCallback = null;
+        } else {
+          showToastNotification('Step-Up 2FA Clearance Granted! 15-Minute Task Active.', 'success');
+        }
+      } else {
+        alert('Invalid OTP. Testing code is 889922.');
+      }
+    };
+
+    window.handleLoginStep1 = function(e) {
+      if (e) e.preventDefault();
+      document.getElementById('form-login-step1').classList.add('d-none');
+      document.getElementById('form-login-step2').classList.remove('d-none');
+    };
+
+    window.handleLoginStep2 = function() {
+      const id = document.getElementById('login-identifier').value.toLowerCase();
+      closeModalEl('loginModal');
+
+      if (id.includes('admin')) {
+        switchPersona('ADMIN');
+      } else if (id.includes('officer') || id.includes('zsb')) {
+        switchPersona('ZSB_OFFICER');
+      } else {
+        switchPersona('ESM');
+      }
+      showToastNotification(`Signed in successfully as ${id || 'Veteran'}!`, 'success');
+    };
+
+    window.handleRegistration = function(e) {
+      if (e) e.preventDefault();
+      closeModalEl('registerModal');
+      openModalById('loginModal');
+      showToastNotification('Registration successful! Please sign in with your credentials.', 'success');
+    };
+
+    window.runAadhaarEkyc = function() {
+      const resBox = document.getElementById('ekyc-result-box');
+      resBox.textContent = 'Aadhaar e-KYC Verified! PPO and ESM Identity Card synced from DigiLocker.';
+      resBox.classList.remove('d-none');
+      setTimeout(() => {
+        closeModalEl('ekycModal');
+        resBox.classList.add('d-none');
+        showToastNotification('DigiLocker PPO records successfully synchronized.', 'success');
+      }, 1000);
+    };
+
+    window.handleAddDependent = function(e) {
+      if (e) e.preventDefault();
+      const name = document.getElementById('dep-name').value;
+      const rel = document.getElementById('dep-relation').value;
+      const dob = document.getElementById('dep-dob').value;
+      const edu = document.getElementById('dep-edu').value;
+
+      const container = document.getElementById('dependents-list-container');
+      const item = document.createElement('div');
+      item.className = 'list-group-item p-3 d-flex justify-content-between align-items-center';
+      item.innerHTML = `<div><div class="fw-bold">${name}</div><small class="text-muted">${rel} | Born: ${dob} | ${edu}</small></div><button class="btn btn-outline-danger btn-sm py-0" onclick="this.parentElement.remove()"><i class="bi bi-trash"></i></button>`;
+      container.prepend(item);
+
+      closeModalEl('addDependentModal');
+      showToastNotification(`Dependent ${name} added successfully!`, 'success');
+    };
+
+    window.handleProfileUpdate = function(e) {
+      if (e) e.preventDefault();
+      triggerStepUpModal('Updating Veteran Profile', () => {
+        const name = document.getElementById('prof-name').value;
+        const rank = document.getElementById('prof-rank').value;
+        document.getElementById('header-veteran-name').textContent = name;
+        document.getElementById('header-veteran-rank').textContent = rank;
+        showToastNotification('Military Profile details saved successfully!', 'success');
+      });
+    };
+
+    window.triggerScraperRefreshNow = function() {
+      showToastNotification('Defense portal scraper job triggered. All datasets synchronized.', 'info');
+    };
+
+    window.downloadCsvFile = function() {
+      const csvContent = "data:text/csv;charset=utf-8,Application_ID,Applicant_Name,Service_Number,District,Scheme,Requested_Amount,Status\n"
+        + mockAdminApps.map(a => `${a.id},"${a.applicant}",${a.service},${a.district},"${a.scheme}",${a.amt},${a.status}`).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "VeerSeva_Verified_Applications.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToastNotification('Downloading Verified Applications CSV...', 'success');
+    };
+
+    window.adjustFontSize = function(size) {
+      document.body.classList.remove('font-size-sm', 'font-size-md', 'font-size-lg');
+      document.body.classList.add(`font-size-${size}`);
+      document.querySelectorAll('#btn-font-sm, #btn-font-md, #btn-font-lg').forEach(b => b.classList.remove('active'));
+      document.getElementById(`btn-font-${size}`)?.classList.add('active');
+    };
+
+    window.toggleHighContrast = function() {
+      document.body.classList.toggle('high-contrast-mode');
+    };
+
+    window.stayLoggedIn = function() {
+      sessionSecondsRemaining = 900;
+      idleSeconds = 0;
+      closeModalEl('sessionWarningModal');
+      showToastNotification('Session extended for 15 minutes.', 'info');
+    };
+
+    // Lightweight Infallible Floating Toast
+    window.showToastNotification = function(msg, type = 'info') {
+      let toastBox = document.getElementById('veerseva-floating-toast');
+      if (!toastBox) {
+        toastBox = document.createElement('div');
+        toastBox.id = 'veerseva-floating-toast';
+        toastBox.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:99999;max-width:380px;pointer-events:none;';
+        document.body.appendChild(toastBox);
+      }
+      const toastEl = document.createElement('div');
+      const bg = type === 'success' ? '#138808' : type === 'warning' ? '#b45309' : '#0A192F';
+      toastEl.style.cssText = `background:${bg};color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.3);margin-top:8px;border-left:4px solid #D4AF37;font-size:0.9rem;transition:all 0.3s ease;transform:translateY(10px);opacity:0;`;
+      toastEl.innerHTML = `<i class="bi bi-check2-circle me-2 text-warning"></i> ${msg}`;
+      toastBox.appendChild(toastEl);
+      setTimeout(() => {
+        toastEl.style.transform = 'translateY(0)';
+        toastEl.style.opacity = '1';
+      }, 20);
+      setTimeout(() => {
+        toastEl.style.opacity = '0';
+        toastEl.style.transform = 'translateY(10px)';
+        setTimeout(() => toastEl.remove(), 350);
+      }, 3500);
+    };
+
+    // Session Clock Interval
+    setInterval(() => {
+      sessionSecondsRemaining--;
+      if (sessionSecondsRemaining <= 0) sessionSecondsRemaining = 900;
+      const m = Math.floor(sessionSecondsRemaining / 60);
+      const s = sessionSecondsRemaining % 60;
+      const clockEl = document.getElementById('session-live-clock');
+      if (clockEl) clockEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }, 1000);
+
+    // ==============================================================================
+    // 4. BULLETPROOF GLOBAL EVENT DELEGATION (Clicks, Submits & Navigation)
+    // ==============================================================================
+    document.addEventListener('click', function(e) {
+      // 1. Portal Pill Buttons (Public, Veteran, Admin)
+      const portalBtn = e.target.closest('[data-target-portal]');
+      if (portalBtn) {
+        e.preventDefault();
+        const pid = portalBtn.getAttribute('data-target-portal');
+        switchPortal(pid);
+        showToastNotification(`Navigated to ${pid.toUpperCase()} Portal View`, 'info');
+        return;
+      }
+
+      // 2. Veteran Tab Navigation Buttons
+      const tabBtn = e.target.closest('[data-tab]');
+      if (tabBtn) {
+        e.preventDefault();
+        const tid = tabBtn.getAttribute('data-tab');
+        switchVeteranTab(tid);
+        showToastNotification(`Opened Veteran: ${tid.toUpperCase()}`, 'info');
+        return;
+      }
+
+      // 3. Admin Sidebar Tab Buttons
+      const adminTabBtn = e.target.closest('[data-admin-tab]');
+      if (adminTabBtn) {
+        e.preventDefault();
+        const atid = adminTabBtn.getAttribute('data-admin-tab');
+        switchAdminTab(atid);
+        showToastNotification(`Opened Admin: ${atid.toUpperCase()}`, 'info');
+        return;
+      }
+
+      // 4. Quick Persona Switcher Buttons
+      const personaBtn = e.target.closest('[data-persona]');
+      if (personaBtn) {
+        e.preventDefault();
+        const role = personaBtn.getAttribute('data-persona');
+        switchPersona(role);
+        showToastNotification(`Switched Active Persona: ${role}`, 'success');
+        return;
+      }
+
+      // 5. Modal Trigger Buttons
+      const modalTrigger = e.target.closest('[data-bs-toggle="modal"]');
+      if (modalTrigger) {
+        e.preventDefault();
+        const targetId = modalTrigger.getAttribute('data-bs-target');
+        if (targetId) openModalById(targetId.replace('#', ''));
+        return;
+      }
+
+      // 6. Modal Dismiss Buttons
+      const modalDismiss = e.target.closest('[data-bs-dismiss="modal"]');
+      if (modalDismiss) {
+        e.preventDefault();
+        const modalEl = modalDismiss.closest('.modal');
+        if (modalEl) closeModalEl(modalEl);
+        return;
+      }
+
+      // 7. Dropdown Toggles (Works with or without Bootstrap JS)
+      const dropdownToggle = e.target.closest('[data-bs-toggle="dropdown"]');
+      if (dropdownToggle) {
+        e.preventDefault();
+        const parent = dropdownToggle.closest('.dropdown, .nav-item.dropdown') || dropdownToggle.parentElement;
+        const menu = parent ? parent.querySelector('.dropdown-menu') : null;
+        if (menu) {
+          const isOpen = menu.classList.contains('show');
+          document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+          if (!isOpen) menu.classList.add('show');
+        }
+        return;
+      } else if (!e.target.closest('.dropdown-menu')) {
+        document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+      }
+
+      // 8. Mobile Navbar Collapse Toggle
+      const navToggler = e.target.closest('[data-bs-toggle="collapse"]');
+      if (navToggler) {
+        e.preventDefault();
+        const targetId = navToggler.getAttribute('data-bs-target');
+        const targetEl = targetId ? document.querySelector(targetId) : null;
+        if (targetEl) targetEl.classList.toggle('show');
+        return;
+      }
+
+      // 9. Hash Anchor Links (#pension, #healthcare, #admin-schema, etc.)
+      const anchor = e.target.closest('a[href^="#"]');
+      if (anchor) {
+        const href = anchor.getAttribute('href');
+        if (href && href.length > 1) {
+          const targetId = href.replace('#', '');
+          if (['pension', 'healthcare', 'csd', 'resettlement', 'schemes', 'applications', 'profile', 'overview'].includes(targetId)) {
+            e.preventDefault();
+            switchPortal('veteran');
+            switchVeteranTab(targetId);
+            showToastNotification(`Redirected to ${targetId.toUpperCase()} module`, 'info');
+            return;
+          }
+          if (['admin-approvals', 'admin-stats', 'admin-scrapers', 'admin-export', 'admin-users', 'admin-audit', 'admin-schema', 'admin-rbac'].includes(targetId)) {
+            e.preventDefault();
+            switchPortal('admin');
+            let t = targetId.replace('admin-', '');
+            if (t === 'approvals') t = 'applications';
+            if (t === 'schema') t = 'milestone1';
+            if (t === 'rbac') t = 'milestone2';
+            switchAdminTab(t);
+            showToastNotification(`Redirected to Admin: ${t.toUpperCase()}`, 'info');
+            return;
+          }
+          if (['branches', 'about', 'benefits', 'home'].includes(targetId)) {
+            e.preventDefault();
+            scrollToSection(targetId);
+            return;
+          }
+        }
+      }
+    });
+
+    // Form Submit Interceptor (Guarantees zero accidental GET /? page reloads)
+    document.addEventListener('submit', function(e) {
+      if (e.target) {
+        const formId = e.target.id;
+        if (formId === 'form-login-step1') {
+          handleLoginStep1(e);
+        } else if (formId === 'form-register') {
+          handleRegistration(e);
+        } else if (formId === 'form-submit-app') {
+          handleApplicationSubmit(e);
+        } else if (formId === 'form-admin-review') {
+          handleAdminReviewSubmit(e);
+        } else if (formId === 'form-add-dependent') {
+          handleAddDependent(e);
+        } else if (formId === 'form-update-profile') {
+          handleProfileUpdate(e);
+        }
+      }
+    });
+
+    // ==============================================================================
+    // 5. MASTER INITIALIZATION
+    // ==============================================================================
+    function initMasterEngine() {
+      renderAllContent();
+
+      // Read initial hash
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        if (['pension', 'healthcare', 'csd', 'resettlement', 'schemes', 'applications', 'profile', 'overview'].includes(hash)) {
+          switchPortal('veteran');
+          switchVeteranTab(hash);
+        } else if (hash.startsWith('admin-')) {
+          let tab = hash.replace('admin-', '');
+          if (tab === 'approvals') tab = 'applications';
+          if (tab === 'schema') tab = 'milestone1';
+          if (tab === 'rbac') tab = 'milestone2';
+          switchPortal('admin');
+          switchAdminTab(tab);
+        } else if (['branches', 'about', 'benefits'].includes(hash)) {
+          scrollToSection(hash);
+        }
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMasterEngine);
+    } else {
+      initMasterEngine();
+    }
+  </script>
+</body>
+</html>

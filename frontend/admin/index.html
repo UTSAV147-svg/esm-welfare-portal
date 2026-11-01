@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin & ZSB Officer Command Center | VeerSeva</title>
+  <meta name="description" content="Official review and administrative command portal for Zila Sainik Board (ZSB) Officers and Ministry Administrators.">
+  <meta name="theme-color" content="#070F1D">
+  <link rel="manifest" href="/public/manifest.json">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    // Unified Platform: redirect immediately to single master website
+    window.location.replace('/#admin');
+  </script>
+</head>
+<body class="font-size-md bg-light">
+  <div class="top-tricolor-ribbon"></div>
+
+  <!-- Admin Header Bar -->
+  <header class="bg-dark text-white border-bottom border-warning sticky-top">
+    <div class="container-fluid px-4 py-2 d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <a class="navbar-brand text-white d-flex align-items-center mb-0" href="/admin/">
+          <i class="bi bi-shield-shaded fs-3 text-warning me-2"></i>
+          <div>
+            <span class="fs-4 fw-bold">वीरसेवा <span class="text-warning">VeerSeva</span></span>
+            <span class="badge bg-danger ms-2">OFFICER COMMAND</span>
+          </div>
+        </a>
+
+        <!-- Jurisdiction Badge -->
+        <span class="badge bg-primary text-white py-2 px-3 fw-bold" id="admin-jurisdiction-badge">
+          <i class="bi bi-geo-alt-fill me-1"></i> Jurisdiction: Verifying...
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <div class="text-end d-none d-md-block">
+          <div class="fw-bold small" id="admin-user-email">officer@mod.gov.in</div>
+          <small class="text-warning" id="admin-user-role">ZSB_OFFICER</small>
+        </div>
+        <button class="btn btn-outline-danger btn-sm" id="btn-admin-logout">
+          <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Layout: Sidebar + Content -->
+  <div class="container-fluid px-4 py-4">
+    <div class="row g-4">
+      <!-- Sidebar Navigation -->
+      <aside class="col-lg-3 col-xl-2">
+        <div class="card shadow-sm border-0 sticky-top" style="top: 80px;">
+          <div class="card-header bg-dark text-white py-3 fw-bold">
+            <i class="bi bi-compass-fill text-warning me-2"></i> Navigation
+          </div>
+          <div class="list-group list-group-flush" id="admin-nav-list">
+            <button class="list-group-item list-group-item-action active fw-semibold" data-admin-tab="applications">
+              <i class="bi bi-inbox-fill me-2"></i> Application Approvals
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="stats">
+              <i class="bi bi-bar-chart-fill me-2"></i> Dashboard & Metrics
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="scrapers">
+              <i class="bi bi-arrow-repeat me-2"></i> Scraper Pipelines
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold" data-admin-tab="export">
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i> CSV Data Export
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold admin-only d-none" data-admin-tab="users">
+              <i class="bi bi-people-fill me-2"></i> User Directory
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold admin-only d-none" data-admin-tab="audit">
+              <i class="bi bi-clock-history me-2"></i> Audit Trail (180d)
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold admin-only d-none text-primary" data-admin-tab="milestone1">
+              <i class="bi bi-database-fill-check me-2"></i> Milestone 1: DB Schema
+            </button>
+            <button class="list-group-item list-group-item-action fw-semibold admin-only d-none text-primary" data-admin-tab="milestone2">
+              <i class="bi bi-shield-lock-fill me-2"></i> Milestone 2: JWT & RBAC
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="col-lg-9 col-xl-10">
+        <!-- TAB 1: APPLICATION WORKFLOW -->
+        <section id="admin-tab-applications" class="admin-pane">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <div>
+                <h5 class="fw-bold mb-0"><i class="bi bi-inbox-fill text-primary me-2"></i> Veteran Benefit Applications Pipeline</h5>
+                <small class="text-muted" id="admin-app-scope-desc">Showing applications within your district jurisdiction</small>
+              </div>
+
+              <!-- Status Filters -->
+              <div class="d-flex flex-wrap gap-1">
+                <button class="btn btn-outline-secondary btn-sm active filter-status-btn" data-status="">All</button>
+                <button class="btn btn-outline-warning btn-sm filter-status-btn" data-status="PENDING">Pending</button>
+                <button class="btn btn-outline-info btn-sm filter-status-btn" data-status="UNDER_REVIEW">Under Review</button>
+                <button class="btn btn-outline-success btn-sm filter-status-btn" data-status="APPROVED">Approved</button>
+                <button class="btn btn-outline-danger btn-sm filter-status-btn" data-status="REJECTED">Rejected</button>
+              </div>
+            </div>
+
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>App ID</th>
+                      <th>Veteran Applicant</th>
+                      <th>Service Details</th>
+                      <th>District</th>
+                      <th>Welfare Scheme</th>
+                      <th>Requested (₹)</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-apps-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: METRICS & AGGREGATIONS -->
+        <section id="admin-tab-stats" class="admin-pane d-none">
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold">TOTAL REGISTERED VETERANS</div>
+                  <div class="metric-card-val" id="stat-veterans">0</div>
+                </div>
+                <i class="bi bi-people fs-1 text-primary opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold">BENEFIT APPLICATIONS</div>
+                  <div class="metric-card-val" id="stat-apps">0</div>
+                </div>
+                <i class="bi bi-file-earmark-check fs-1 text-warning opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold">TOTAL FUNDS DISBURSED</div>
+                  <div class="metric-card-val text-success" id="stat-funds">₹0</div>
+                </div>
+                <i class="bi bi-cash-stack fs-1 text-success opacity-50"></i>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="metric-card">
+                <div>
+                  <div class="text-muted small fw-semibold">APPROVAL RATE</div>
+                  <div class="metric-card-val text-info" id="stat-rate">0%</div>
+                </div>
+                <i class="bi bi-percent fs-1 text-info opacity-50"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- District Breakdown Table -->
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 fw-bold">
+              <i class="bi bi-geo-alt-fill text-danger me-2"></i> District-Wise Aggregation Breakdown (SQL GROUP BY)
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>District Name</th>
+                      <th>Total Applications</th>
+                      <th>Approved</th>
+                      <th>Pending Review</th>
+                      <th>Total Funds Disbursed</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-district-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: SCRAPER PIPELINES -->
+        <section id="admin-tab-scrapers" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="fw-bold mb-0"><i class="bi bi-arrow-repeat text-warning me-2"></i> External Portals Scraper Pipelines</h5>
+                <small class="text-muted">Automated sync with SPARSH, ECHS, CSD AFD, and DGR/KSB</small>
+              </div>
+              <button class="btn btn-warning btn-sm fw-bold" id="btn-refresh-all-scrapers">
+                <i class="bi bi-arrow-clockwise me-1"></i> Force Refresh All Scrapers Now
+              </button>
+            </div>
+            <div class="card-body p-4" id="scrapers-container">
+              <!-- Dynamically populated scrapers status cards -->
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: CSV EXPORT -->
+        <section id="admin-tab-export" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 fw-bold">
+              <i class="bi bi-file-earmark-spreadsheet-fill text-success me-2"></i> Export Verified Applications Dataset (CSV Stream)
+            </div>
+            <div class="card-body p-4">
+              <p class="text-muted">Stream CSV data sets of verified and processed welfare applications for official offline processing, audit submissions, and bank DBT uploads.</p>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold">Filter Status</label>
+                  <select class="form-select" id="export-status-select">
+                    <option value="APPROVED">Approved Applications Only</option>
+                    <option value="PENDING">Pending Review Applications</option>
+                    <option value="UNDER_REVIEW">Under Review Applications</option>
+                    <option value="REJECTED">Rejected Applications</option>
+                  </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                  <button class="btn btn-success fw-bold w-100" id="btn-export-csv">
+                    <i class="bi bi-download me-2"></i> Download Streamed CSV
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 5: USER DIRECTORY (ADMIN ONLY) -->
+        <section id="admin-tab-users" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 fw-bold">
+              <i class="bi bi-people-fill text-primary me-2"></i> User Directory & Role Oversight
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>User ID</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Service No</th>
+                      <th>Jurisdiction District</th>
+                      <th>2FA Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-users-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 6: AUDIT TRAIL (ADMIN ONLY) -->
+        <section id="admin-tab-audit" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 fw-bold">
+              <i class="bi bi-clock-history text-danger me-2"></i> CERT-In Compliance 180-Day Encrypted Audit Trail
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Log ID</th>
+                      <th>Timestamp</th>
+                      <th>User ID</th>
+                      <th>Action</th>
+                      <th>Client IP</th>
+                      <th>Status</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-audit-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 7: MILESTONE 1 DB SCHEMA VIEWER (ADMIN ONLY) -->
+        <section id="admin-tab-milestone1" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="fw-bold mb-0"><i class="bi bi-database-fill-check text-warning me-2"></i> Milestone 1: Normalized Database Schema Viewer</h5>
+                <small class="text-secondary">MySQL Normalized Relational Schema Architecture</small>
+              </div>
+              <span class="badge bg-warning text-dark fw-bold">MySQL 8.x Normalized</span>
+            </div>
+            <div class="card-body p-4" id="schema-viewer-container">
+              <!-- Dynamically populated schema tables -->
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 8: MILESTONE 2 JWT & RBAC MATRIX (ADMIN ONLY) -->
+        <section id="admin-tab-milestone2" class="admin-pane d-none">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="fw-bold mb-0"><i class="bi bi-shield-lock-fill text-warning me-2"></i> Milestone 2: JWT Claims & RBAC Matrix Viewer</h5>
+                <small class="text-secondary">Express Middleware Security & District Scoping</small>
+              </div>
+              <span class="badge bg-success">CERT-In Enforced</span>
+            </div>
+            <div class="card-body p-4" id="rbac-viewer-container">
+              <!-- Dynamically populated matrix -->
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Review Application Modal -->
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-dark text-white border-bottom border-warning">
+          <h5 class="modal-title fw-bold" id="reviewModalTitle">Review Benefit Application</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-review-app">
+            <input type="hidden" id="review-app-id">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Transition Status</label>
+              <select class="form-select" id="review-status-select" required>
+                <option value="UNDER_REVIEW">Mark UNDER_REVIEW (In Verification)</option>
+                <option value="APPROVED">APPROVE Application</option>
+                <option value="REJECTED">REJECT Application</option>
+              </select>
+            </div>
+            <div class="mb-3" id="disbursed-amount-group">
+              <label class="form-label fw-semibold">Disbursed Amount (₹)</label>
+              <input type="number" class="form-control" id="review-disbursed-amount" value="30000">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Officer Notes / Feedback</label>
+              <textarea class="form-control" id="review-notes" rows="3" placeholder="Enter verification notes or rejection reasons..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold w-100 py-2 fw-bold">
+              Submit Review Decision (Database Transaction)
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/admin/js/admin.js"></script>
+</body>
+</html>

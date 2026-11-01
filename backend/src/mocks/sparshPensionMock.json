@@ -1,0 +1,68 @@
+{
+  "sparsh_account": {
+    "sparsh_pno": "2024SPARSH889911",
+    "legacy_ppo": "PPO/ARM/2024/0987654",
+    "pensioner_name": "Subedar Major Ramesh Sharma",
+    "service_number": "JC-765432W",
+    "record_office": "Signals Records, Jabalpur",
+    "disbursing_agency": "SPARSH (State Bank of India CPPC)",
+    "bank_account_masked": "XXXXXXXXX4512",
+    "ifsc_code": "SBIN0001423",
+    "pension_status": "ACTIVE_DISBURSING",
+    "current_monthly_pension": 48650.00,
+    "breakdown": {
+      "basic_pension": 31800.00,
+      "dearness_relief_percentage": 53,
+      "dearness_relief_amount": 16854.00,
+      "military_service_pay_msp": 5200.00,
+      "commutation_recovery": 5204.00,
+      "net_disbursement": 48650.00
+    },
+    "orop_revision": {
+      "orop_phase": "OROP-2",
+      "pre_orop_basic": 27900.00,
+      "revised_orop_basic": 31800.00,
+      "monthly_increase": 3900.00,
+      "arrears_total": 46800.00,
+      "arrears_disbursed_installments": "4 of 4 Paid",
+      "status": "COMPLETED"
+    },
+    "life_certificate": {
+      "submission_type": "Digital Life Certificate (Jeevan Pramaan / Facial DLC)",
+      "last_submitted_date": "2025-11-14",
+      "valid_until": "2026-11-30",
+      "days_remaining": 36,
+      "status": "VERIFIED_ACTIVE"
+    },
+    "pension_slips": [
+      {
+        "month_year": "October 2026",
+        "gross_amount": 53854.00,
+        "deductions": 5204.00,
+        "net_amount": 48650.00,
+        "disbursed_on": "2026-10-24",
+        "utr_ref": "SPARSH/PCDA/20261024/88921",
+        "status": "CREDITED"
+      },
+      {
+        "month_year": "September 2026",
+        "gross_amount": 53854.00,
+        "deductions": 5204.00,
+        "net_amount": 48650.00,
+        "disbursed_on": "2026-09-26",
+        "utr_ref": "SPARSH/PCDA/20260926/44129",
+        "status": "CREDITED"
+      },
+      {
+        "month_year": "August 2026",
+        "gross_amount": 53854.00,
+        "deductions": 5204.00,
+        "net_amount": 48650.00,
+        "disbursed_on": "2026-08-28",
+        "utr_ref": "SPARSH/PCDA/20260828/11902",
+        "status": "CREDITED"
+      }
+    ],
+    "last_scraped_at": "2026-10-25T08:00:00Z"
+  }
+}

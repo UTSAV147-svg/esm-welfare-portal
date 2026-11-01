@@ -1,0 +1,105 @@
+{
+  "regional_centers": [
+    { "id": "RC-PN", "name": "Regional Centre ECHS Pune", "state": "Maharashtra" },
+    { "id": "RC-DL", "name": "Regional Centre ECHS Delhi-1", "state": "Delhi" },
+    { "id": "RC-CH", "name": "Regional Centre ECHS Chandimandir", "state": "Haryana" },
+    { "id": "RC-LK", "name": "Regional Centre ECHS Lucknow", "state": "Uttar Pradesh" }
+  ],
+  "polyclinics": [
+    {
+      "code": "PC-PN-01",
+      "name": "ECHS Polyclinic Khadki (Type A)",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "address": "Near Military Hospital Khadki, Pune 411003",
+      "contact": "+91-20-25812345",
+      "timings": "08:00 AM - 04:00 PM (Mon-Sat)",
+      "facilities": ["OPD", "Pharmacy", "Laboratory", "Dental", "Physiotherapy", "ECG"],
+      "appointment_portal_url": "https://echs.gov.in/appointment/khadki"
+    },
+    {
+      "code": "PC-PN-02",
+      "name": "ECHS Polyclinic Pune Cantt (Type B)",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "address": "Command Hospital Complex, Pune 411040",
+      "contact": "+91-20-26365511",
+      "timings": "08:30 AM - 03:30 PM",
+      "facilities": ["General OPD", "Specialist Consultation", "Pharmacy", "Radiology"],
+      "appointment_portal_url": "https://echs.gov.in/appointment/punecantt"
+    },
+    {
+      "code": "PC-DL-01",
+      "name": "ECHS Polyclinic Delhi Cantt (Type A)",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "address": "Base Hospital Complex, Delhi Cantt 110010",
+      "contact": "+91-11-25691122",
+      "timings": "08:00 AM - 04:00 PM",
+      "facilities": ["24x7 Emergency OPD", "Full Diagnostic Lab", "Specialist OPD", "Pharmacy"],
+      "appointment_portal_url": "https://echs.gov.in/appointment/delhicantt"
+    },
+    {
+      "code": "PC-DL-02",
+      "name": "ECHS Polyclinic Lodhi Road (Type C)",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "address": "Lodhi Road Institutional Area, New Delhi 110003",
+      "contact": "+91-11-24623344",
+      "timings": "08:30 AM - 03:30 PM",
+      "facilities": ["OPD", "Pharmacy", "Dental"],
+      "appointment_portal_url": "https://echs.gov.in/appointment/lodhi"
+    }
+  ],
+  "empaneled_hospitals": [
+    {
+      "id": "HOSP-001",
+      "name": "Ruby Hall Clinic, Pune",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "specialities": ["Cardiology", "Cardiothoracic Surgery", "Oncology", "Neurology", "Orthopedics"],
+      "accreditation": "NABH & NABL",
+      "beds_cashless": true,
+      "address": "40 Sassoon Road, Pune 411001",
+      "nodal_officer": "Lt Col (Retd) Dr. R. K. Joshi (+91-9822019911)",
+      "referral_validity_days": 30
+    },
+    {
+      "id": "HOSP-002",
+      "name": "Jehangir Hospital, Pune",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "specialities": ["Joint Replacement", "Nephrology & Dialysis", "Urology", "Gastroenterology"],
+      "accreditation": "NABH",
+      "beds_cashless": true,
+      "address": "32 Sassoon Road, Pune 411001",
+      "nodal_officer": "Dr. Meena Deshmukh (+91-9822044882)",
+      "referral_validity_days": 30
+    },
+    {
+      "id": "HOSP-003",
+      "name": "Medanta - The Medicity, Gurugram / Delhi NCR",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "specialities": ["Cardiac Sciences", "Cancer Institute", "Neurosciences", "Liver Transplantation"],
+      "accreditation": "JCI & NABH",
+      "beds_cashless": true,
+      "address": "CH Bakhtawar Singh Road, Sector 38, Gurugram / NCR",
+      "nodal_officer": "Col (Retd) V. S. Chauhan (+91-9810022331)",
+      "referral_validity_days": 30
+    },
+    {
+      "id": "HOSP-004",
+      "name": "Max Super Speciality Hospital, Saket",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "specialities": ["Cardiology", "Orthopedics & Spine", "Critical Care", "Ophthalmology"],
+      "accreditation": "NABH",
+      "beds_cashless": true,
+      "address": "1, 2 Press Enclave Marg, Saket, New Delhi 110017",
+      "nodal_officer": "Wing Cdr (Retd) Amit Rawat (+91-9811883300)",
+      "referral_validity_days": 30
+    }
+  ],
+  "last_scraped_at": "2026-10-25T07:30:00Z"
+}

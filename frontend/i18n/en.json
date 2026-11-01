@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "brand": "VeerSeva",
+    "subtitle": "Smart Orchestrator for Indian Armed Forces Veterans",
+    "home": "Home",
+    "benefits": "Benefits",
+    "pension": "SPARSH Pension",
+    "healthcare": "ECHS Healthcare",
+    "csd": "CSD AFD Portal",
+    "resettlement": "DGR & KSB Grants",
+    "schemes": "Apply Schemes",
+    "profile": "Veteran Profile",
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "adminPortal": "Officer Portal",
+    "veteranPortal": "Veteran Dashboard"
+  },
+  "hero": {
+    "badge": "Ministry of Defence & India Stack Orchestrator",
+    "title": "One Unified Gateway for Indian Ex-Servicemen Benefits",
+    "description": "Seamlessly access your SPARSH pension, ECHS healthcare, CSD AFD vehicle quotas, and KSB Prime Minister's Scholarships with two-step security and automated synchronization.",
+    "cta_onboard": "Aadhaar e-KYC Onboarding",
+    "cta_login": "Sign In with Service No",
+    "cta_track": "Track Benefits"
+  },
+  "branches": {
+    "army": "Indian Army",
+    "navy": "Indian Navy",
+    "airforce": "Indian Air Force",
+    "coastguard": "Indian Coast Guard"
+  },
+  "dashboard": {
+    "welcome": "Jai Hind",
+    "service_no": "Service No",
+    "rank": "Rank",
+    "corps": "Corps/Arm",
+    "ppo": "PPO No",
+    "district": "ZSB District",
+    "tabs": {
+      "overview": "Overview",
+      "pension": "SPARSH Pension",
+      "healthcare": "ECHS Healthcare",
+      "csd": "CSD AFD Canteen",
+      "resettlement": "Grants & Jobs",
+      "applications": "My Applications",
+      "dependents": "Dependents",
+      "profile": "My Profile"
+    }
+  },
+  "accessibility": {
+    "textSize": "Text Size",
+    "highContrast": "High Contrast",
+    "normal": "Normal",
+    "language": "Language"
+  },
+  "session": {
+    "warningTitle": "Session Inactivity Alert",
+    "warningMessage": "Your session will expire in 2 minutes due to inactivity. Would you like to stay logged in?",
+    "stayLoggedIn": "Stay Logged In",
+    "logoutNow": "Sign Out Now"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "afd_categories": [
+    { "id": "4W", "name": "Four Wheelers (Cars / SUVs)" },
+    { "id": "2W", "name": "Two Wheelers (Bikes / Scooters)" },
+    { "id": "ELECTRONICS", "name": "White Goods & Electronics" }
+  ],
+  "entitlement_rules": {
+    "OFFICERS": { "car_ceiling": 2000000, "engine_cc": 2500, "periodicity_years": 8 },
+    "JCOS": { "car_ceiling": 1000000, "engine_cc": 1500, "periodicity_years": 8 },
+    "ORS": { "car_ceiling": 800000, "engine_cc": 1400, "periodicity_years": 8 }
+  },
+  "products": [
+    {
+      "index_no": "640101",
+      "category": "4W",
+      "name": "Maruti Grand Vitara Zeta 1.5L Smart Hybrid",
+      "brand": "Maruti Suzuki",
+      "csd_base_price": 1285000.00,
+      "market_mrp": 1475000.00,
+      "estimated_savings": 190000.00,
+      "fuel_type": "Petrol Hybrid",
+      "transmission": "Manual 5-Speed",
+      "entitlement_eligible": ["OFFICERS", "JCOS"],
+      "dealer_availability": "Ready Stock at Pune / Delhi Depots",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/640101"
+    },
+    {
+      "index_no": "640205",
+      "category": "4W",
+      "name": "Hyundai Creta SX (O) 1.5 Petrol",
+      "brand": "Hyundai",
+      "csd_base_price": 1420000.00,
+      "market_mrp": 1640000.00,
+      "estimated_savings": 220000.00,
+      "fuel_type": "Petrol",
+      "transmission": "IVT Automatic",
+      "entitlement_eligible": ["OFFICERS"],
+      "dealer_availability": "2 Weeks Lead Time",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/640205"
+    },
+    {
+      "index_no": "640310",
+      "category": "4W",
+      "name": "Tata Punch Creative Dazzle Pack",
+      "brand": "Tata Motors",
+      "csd_base_price": 745000.00,
+      "market_mrp": 860000.00,
+      "estimated_savings": 115000.00,
+      "fuel_type": "Petrol / CNG",
+      "transmission": "Manual",
+      "entitlement_eligible": ["OFFICERS", "JCOS", "ORS"],
+      "dealer_availability": "Available Across All CSD Stations",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/640310"
+    },
+    {
+      "index_no": "620108",
+      "category": "2W",
+      "name": "Royal Enfield Classic 350 Dual Channel ABS",
+      "brand": "Royal Enfield",
+      "csd_base_price": 182000.00,
+      "market_mrp": 215000.00,
+      "estimated_savings": 33000.00,
+      "fuel_type": "Petrol",
+      "transmission": "5-Speed",
+      "entitlement_eligible": ["OFFICERS", "JCOS", "ORS"],
+      "dealer_availability": "Immediate",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/620108"
+    },
+    {
+      "index_no": "620215",
+      "category": "2W",
+      "name": "Honda Activa 6G DLX Smart Key",
+      "brand": "Honda",
+      "csd_base_price": 71500.00,
+      "market_mrp": 83200.00,
+      "estimated_savings": 11700.00,
+      "fuel_type": "Petrol",
+      "transmission": "Automatic CVT",
+      "entitlement_eligible": ["OFFICERS", "JCOS", "ORS"],
+      "dealer_availability": "Immediate",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/620215"
+    },
+    {
+      "index_no": "710401",
+      "category": "ELECTRONICS",
+      "name": "Samsung 55\" Crystal 4K UHD Smart TV (55DUE7700)",
+      "brand": "Samsung",
+      "csd_base_price": 38990.00,
+      "market_mrp": 49990.00,
+      "estimated_savings": 11000.00,
+      "fuel_type": "N/A",
+      "transmission": "N/A",
+      "entitlement_eligible": ["OFFICERS", "JCOS", "ORS"],
+      "dealer_availability": "Direct Home Delivery",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/710401"
+    },
+    {
+      "index_no": "710502",
+      "category": "ELECTRONICS",
+      "name": "LG 1.5 Ton 5-Star AI DUAL Inverter Split AC",
+      "brand": "LG Electronics",
+      "csd_base_price": 36500.00,
+      "market_mrp": 46990.00,
+      "estimated_savings": 10490.00,
+      "fuel_type": "N/A",
+      "transmission": "N/A",
+      "entitlement_eligible": ["OFFICERS", "JCOS", "ORS"],
+      "dealer_availability": "In Stock",
+      "afd_portal_url": "https://afd.csdindia.gov.in/product/710502"
+    }
+  ],
+  "last_scraped_at": "2026-10-25T06:00:00Z"
+}

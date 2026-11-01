@@ -1,0 +1,63 @@
+{
+  "dgr_corporate_jobs": [
+    {
+      "job_id": "DGR-JOB-2026-101",
+      "employer": "Tata Power Renewable Energy Ltd",
+      "title": "Senior Security & Operations Manager",
+      "location": "Pune & Solar Field Sites, Maharashtra",
+      "target_rank": "Ex-JCO / Subedar / Honorary Lieutenant",
+      "ctc_lpa": "9.5 - 12.0 LPA",
+      "experience_req": "15+ years in Armed Forces (Combat/Signals/Security)",
+      "application_deadline": "2026-11-15",
+      "status": "OPEN",
+      "portal_url": "https://dgrindia.gov.in/jobs/tata-power-sec"
+    },
+    {
+      "job_id": "DGR-JOB-2026-102",
+      "employer": "L&T Defence & Aerospace Systems",
+      "title": "Quality Assurance Specialist (Armament & Avionics)",
+      "location": "Talegaon, Pune",
+      "target_rank": "Ex-Havildar / Naib Subedar (EME / Signals / Artillery)",
+      "ctc_lpa": "6.8 - 8.5 LPA",
+      "experience_req": "Diploma in Mechanical/Electrical + Military Technical Corps",
+      "application_deadline": "2026-11-20",
+      "status": "OPEN",
+      "portal_url": "https://dgrindia.gov.in/jobs/lnt-qa"
+    },
+    {
+      "job_id": "DGR-JOB-2026-103",
+      "employer": "Adani Ports & Special Economic Zone",
+      "title": "Port Security Control Room Officer",
+      "location": "Mundra / Hazira / Mumbai Port",
+      "target_rank": "Ex-Chief Petty Officer / PO (Indian Navy) or Havildar (Army)",
+      "ctc_lpa": "7.2 - 8.0 LPA",
+      "experience_req": "Naval radar / coastal surveillance / armed forces",
+      "application_deadline": "2026-11-10",
+      "status": "OPEN",
+      "portal_url": "https://dgrindia.gov.in/jobs/adani-port"
+    },
+    {
+      "job_id": "DGR-JOB-2026-104",
+      "employer": "DGR Resettlement Cell",
+      "title": "Security Agency Sponsorship Scheme (Proprietor Registration)",
+      "location": "District Sainik Board assigned districts nationwide",
+      "target_rank": "Commissioned Officers & Retired JCOs",
+      "ctc_lpa": "Entrepreneurial Quota (Govt PSU Security Contracts)",
+      "experience_req": "Officers retired within last 5 years under 60 years of age",
+      "application_deadline": "Rolling Basis",
+      "status": "OPEN",
+      "portal_url": "https://dgrindia.gov.in/schemes/security-agency"
+    }
+  ],
+  "pmss_scholarship_status": {
+    "academic_year": "2026-2027",
+    "application_window": "15 July 2026 to 30 November 2026",
+    "total_slots": 5500,
+    "boys_quota": 2750,
+    "girls_quota": 2750,
+    "current_stage": "Stage 2: District ZSB Document Verification",
+    "next_stage": "Stage 3: KSB HQ Merit List Generation (Expected Dec 2026)",
+    "disbursement_timeline": "January 2027 Direct Benefit Transfer (DBT) into Student/ESM Bank Account"
+  },
+  "last_scraped_at": "2026-10-25T07:45:00Z"
+}
